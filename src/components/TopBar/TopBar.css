@@ -1,0 +1,12 @@
+.topBar {
+    position: relative;
+    height: 120px;
+    left: 0px;
+    top: 0px;
+    background: #D32F2F;
+    flex-wrap: nowrap;
+}
+
+.logo {
+    margin-left: 20px;
+}

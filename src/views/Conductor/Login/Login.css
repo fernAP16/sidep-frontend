@@ -1,0 +1,66 @@
+.topBarLogin {
+    position: relative;
+    height: 120px;
+    left: 0px;
+    top: 0px;
+    background: #D32F2F;
+}
+
+.logoRed{
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.iniciarSesion {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.iniciarSesionText {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.datos {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    margin-bottom: 30px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.datos-titulo {
+    font-size: 20px;
+    margin-bottom: 8px;
+}
+
+.datos-clave {
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+}
+
+.datos-digito {
+    width: 60px;
+}
+
+.button-inicio{
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.button-login {
+    height: 40px;
+    width: 100%;
+    margin-top: 50px;    
+    font-size: 20px;
+    font-weight: lighter;
+}
