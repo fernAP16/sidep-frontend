@@ -1,0 +1,48 @@
+.orden-card {
+    background: #FFFFFF;
+    border: 0.5px solid rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    margin-bottom: 30px;
+}
+
+.orden-datos {
+    padding: 15px;
+    flex-direction: column;
+    width: 100%;
+}
+
+.orden-cliente-text {
+    font-size: 24px;
+    font-weight: bold;
+
+}
+
+.orden-producto {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.botones-card {
+    display: flex;
+    width: 100%;
+}
+
+.boton-detalle-mitad{
+    background-color: #EF6C00;
+    height: 40px;
+    width: 50%;
+    border-radius: 0px;
+    font-size: 20px;
+    font-weight: lighter;
+}
+
+.boton-despacho{
+    background-color: #00A71B;
+    height: 40px;
+    width: 50%;
+    border-radius: 0px;
+    font-size: 20px;
+    font-weight: lighter;
+}
