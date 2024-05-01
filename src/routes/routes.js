@@ -1,4 +1,6 @@
 export const LOGIN_CONDUCTOR = "/login";
+export const LOGIN_REVISOR = "/loginRevisor";
 export const INICIO_CONDUCTOR = "/home";
+export const INICIO_REVISOR = "/homeRev";
 export const HISTORIAL_CONDUCTOR = "/historial";
 export const TURNO_ESPERA = "/despacho/turnoEspera";
