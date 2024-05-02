@@ -6,7 +6,7 @@ import DespacharIcon from '../../assets/icons/despachar.svg';
 
 const OrdenesCard = (props) => {
 
-  const { orden, esInicio, detalleAction } = props;
+  const { orden, esInicio, detalleAction, despacharAction } = props;
   
   React.useEffect(() => {
 
@@ -52,6 +52,7 @@ const OrdenesCard = (props) => {
                     alt="Logo del sistema SIDEP"
                   />
                 }
+                onClick={despacharAction}
               >
                 Despachar
               </Button>

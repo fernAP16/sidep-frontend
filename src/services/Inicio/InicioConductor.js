@@ -7,3 +7,11 @@ export const getOrdenesByIdConductor = (idConductor) => {
     API_URL.url + "ordenRecojo/listByConductor/" + idConductor
   )
 }
+
+export const registrarDespachoByIdOrden = (id) => {
+  const obj = { idOrden: id }
+  return axios.post(
+    API_URL.url + "despacho/registrar",
+    obj
+  )
+}

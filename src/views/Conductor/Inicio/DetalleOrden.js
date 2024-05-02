@@ -12,14 +12,13 @@ export const DetalleOrden = () => {
     const [ordenDetalle, setOrdenDetalle] = React.useState(null);
 
     React.useEffect(() => {
-        console.log(state);
         let nomb = (state && state.nombres) ? state.nombres.split(' ') : localStorage.getItem('nombres').split(' ');
         setNombres(nomb[0].charAt(0) + nomb[0].slice(1).toLowerCase() + " " + nomb[1].charAt(0) + nomb[1].slice(1).toLowerCase());
         setOrdenDetalle((state && state.orden) ? state.orden : localStorage.getItem('ordenDetalle'))
-        
-    })
+    }, [])
 
     const handleVolver = () => {
+        
         navigate(-1, {
             state: {
                 nombres: nombres,
