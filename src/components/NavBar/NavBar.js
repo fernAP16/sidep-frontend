@@ -1,7 +1,7 @@
 import React from 'react'
 import { useLocation } from 'react-router-dom';
 import * as ROUTES from '../../routes/routes.js';
-import { BottomNavigation, BottomNavigationAction, Grid, Paper } from '@mui/material';
+import { BottomNavigation, BottomNavigationAction, Paper } from '@mui/material';
 import './NavBar.css';
 
 const NavBar = (props) => {
@@ -27,7 +27,7 @@ const NavBar = (props) => {
     let val = 1;
 
     switch (location.pathname) {
-      case ROUTES.TURNO_ESPERA:
+      case ROUTES.DESPACHO_TURNO_ESPERA:
         buttonName = 'Despacho';
         val = 0;
         break;

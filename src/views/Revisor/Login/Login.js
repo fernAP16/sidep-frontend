@@ -48,8 +48,10 @@ export const LoginRevisor = () => {
           <Grid item>
             <TextField 
               variant="outlined" 
+              className='textfield-dni'
               onChange={(e) => {
-                setDni(e.target.value)
+                setDni(e.target.value);
+                setError(false);
               }}
               value={dni}
               fullWidth/>
@@ -62,14 +64,27 @@ export const LoginRevisor = () => {
             <Grid item>
               <TextField
                 variant="outlined" 
+                className='textfield-contrasena'
+                type="password"
+                inputProps={{ maxLength: 30 }}
                 onChange={(e) => {
-                  setContra(e.target.value)
+                  setContra(e.target.value);
+                  setError(false);
                 }}
                 value={contra}
                 fullWidth
               />
             </Grid>
         </Grid>
+        {error &&
+          <Grid item className='button-inicio'>
+            <Typography
+              className='mensaje-error'
+            >
+              DNI o clave incorrecta
+            </Typography>
+          </Grid>
+        }
         <Grid item className='button-inicio'>
           <Button 
             variant="contained" 

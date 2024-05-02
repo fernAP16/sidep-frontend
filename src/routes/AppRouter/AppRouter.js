@@ -10,6 +10,8 @@ import Layout from "../../hoc/Layout.js"
 import { useSelector } from 'react-redux';
 import { LoginRevisor } from '../../views/Revisor/Login/Login.js';
 import { InicioRevisor } from '../../views/Revisor/Inicio/InicioRevisor.js';
+import { LayoutRevisor } from '../../hoc/LayoutRevisor.js';
+import { DetalleOrden } from '../../views/Conductor/Inicio/DetalleOrden.js';
 
 export const AppRouter = (props) => {
 
@@ -34,11 +36,13 @@ export const AppRouter = (props) => {
     let routes = (
         <Routes>
             <Route index path={ROUTES.LOGIN_CONDUCTOR} element = {<LoginConductor/>}/>
-            <Route path={ROUTES.TURNO_ESPERA} element={/*loading === true ? <></> : */<Layout><TurnoEspera/></Layout>}/>
+            <Route path={ROUTES.DESPACHO_TURNO_ESPERA} element={/*loading === true ? <></> : */<Layout><TurnoEspera/></Layout>}/>
             <Route path={ROUTES.INICIO_CONDUCTOR} element={/*loading === true ? <></> : */<Layout><InicioConductor/></Layout>}/>
-            <Route path={ROUTES.INICIO_REVISOR} element={/*loading === true ? <></> : */<Layout><InicioRevisor/></Layout>}/>
             <Route path={ROUTES.HISTORIAL_CONDUCTOR} element={/*loading === true ? <></> : */<Layout><Historial/></Layout>}/>
+            <Route path={ROUTES.DETALLE_CONDUCTOR} element={/*loading === true ? <></> : */<Layout><DetalleOrden/></Layout>}/>
+
             <Route path={ROUTES.LOGIN_REVISOR} element = {<LoginRevisor/>}/>
+            <Route path={ROUTES.INICIO_REVISOR} element={/*loading === true ? <></> : */<LayoutRevisor><InicioRevisor/></LayoutRevisor>}/>
         </Routes>
     )
 

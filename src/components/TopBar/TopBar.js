@@ -5,14 +5,17 @@ import LogoIcon from '../../assets/icons/logo.svg'
 import LogOutIcon from '../../assets/icons/logout.svg'
 import "./TopBar.css";
 
-const TobBar = () => {
+const TobBar = (props) => {
+
+    const { direccion } = props;
 
     let navigate = useNavigate();
 
     const logOut = () => {
         localStorage.clear();
         localStorage.setItem("sesion", JSON.stringify(true));
-        navigate("/login");
+        if(direccion === 1) navigate("/login");
+        else if (direccion === 2) navigate("/revisor/login");
     };
 
     return (

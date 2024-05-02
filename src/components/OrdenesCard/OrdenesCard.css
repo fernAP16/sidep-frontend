@@ -29,13 +29,17 @@
     width: 100%;
 }
 
-.boton-detalle-mitad{
+.boton-detalle{
     background-color: #EF6C00;
     height: 40px;
     width: 50%;
     border-radius: 0px;
     font-size: 20px;
     font-weight: lighter;
+}
+
+.css-vkah-MuiButtonBase-root-MuiButton-root:hover.boton-detalle{
+    background-color: #EF6C00;
 }
 
 .boton-despacho{
@@ -45,4 +49,8 @@
     border-radius: 0px;
     font-size: 20px;
     font-weight: lighter;
+}
+
+.css-vkah-MuiButtonBase-root-MuiButton-root:hover.boton-despacho{
+    background-color: #00A71B;
 }

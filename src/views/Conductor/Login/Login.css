@@ -32,7 +32,7 @@
     display: flex;
     position: relative;
     flex-direction: column;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
     margin-left: 20px;
     margin-right: 20px;
 }
@@ -60,7 +60,29 @@
 .button-login {
     height: 40px;
     width: 100%;
-    margin-top: 50px;    
+    margin-top: 25px;    
     font-size: 20px;
     font-weight: lighter;
+}
+
+.mensaje-error{
+    display: flex;
+    position: static;
+    margin: 10px 0px;
+    justify-content: center;
+    width: 100%;
+    padding: 8px 20px;
+    border: 2px solid #EF6C00;
+    border-radius: 5px;
+    color: #EF6C00;
+    background-color: #EF6C0033;
+    
+}
+
+.textfield-dni{
+    font-size: 24px;
+}
+
+.textfield-contrasena{
+    font-size: 24px;
 }
