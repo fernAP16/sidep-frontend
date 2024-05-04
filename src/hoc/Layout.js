@@ -14,7 +14,7 @@ import NavBar from '../components/NavBar/NavBar.js';
 
 const Layout = (props) => {
 
-    const {title, optionBack, cursiveTitle, incident, lastCheckIn} = props;
+    // const {title, optionBack, cursiveTitle, incident, lastCheckIn} = props;
     const [value, setValue] = React.useState(0);
     const ref = React.useRef(null);
     let navigate = useNavigate();
@@ -22,7 +22,7 @@ const Layout = (props) => {
 
     const switchBottomOption = () =>{
         switch(location.pathname){
-            case ROUTES.TURNO_ESPERA:
+            case ROUTES.DESPACHO_TURNO_ESPERA:
                 setValue(0);
                 break;
             case ROUTES.INICIO_CONDUCTOR:
@@ -51,7 +51,7 @@ const Layout = (props) => {
     const changeMenuOption = (value) =>{
         switch(value){
             case 0:
-                navigate(ROUTES.TURNO_ESPERA);
+                navigate(ROUTES.DESPACHO_TURNO_ESPERA);
                 break;
             case 1:
                 navigate(ROUTES.INICIO_CONDUCTOR);
@@ -69,6 +69,7 @@ const Layout = (props) => {
         <Auxiliar>
         <Box ref={ref}>
           <TopBar
+          direccion={1}
           />
           {props.children}
           <CssBaseline />

@@ -2,17 +2,26 @@ import { Button, Grid, TextField, Typography } from '@mui/material';
 import React, { useRef } from 'react';
 import LogoRed from '../../../assets/icons/logoRed.svg';
 import './Login.css';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import * as ROUTES from '../../../routes/routes';
+import { auth } from '../../../services/Login/LoginConductor';
+import { getOrdenesByIdConductor } from '../../../services/Inicio/InicioConductor';
 
 export const LoginConductor = () => {
-
-  const textfieldRefs = [useRef(), useRef(), useRef(), useRef()]; // Referencias para los TextField
-
+  
+  const { state } = useLocation();
   let navigate = useNavigate();
 
-  React.useEffect(() => {
+  const textfieldRefs = [useRef(), useRef(), useRef(), useRef()]; // Referencias para los TextField
+  const [dni, setDni] = React.useState('');
+  const [digito1, setDigito1] = React.useState('');
+  const [digito2, setDigito2] = React.useState('');
+  const [digito3, setDigito3] = React.useState('');
+  const [digito4, setDigito4] = React.useState('');
+  const [error, setError] = React.useState(false);
 
+  React.useEffect(() => {
+    
   }, []);
 
   const handleKeyDown = (index, event) => {
@@ -29,7 +38,22 @@ export const LoginConductor = () => {
   };
 
   const handleIngresar = () => {
-    navigate(ROUTES.INICIO_CONDUCTOR);
+    const clave = digito1 + digito2 + digito3 + digito4;
+    auth(dni, clave)
+    .then((function(response) {
+      if(response.data.status){
+        localStorage.setItem('idConductor', response.data.id);
+        localStorage.setItem('nombres', response.data.nombres);
+        navigate(ROUTES.INICIO_CONDUCTOR, {
+          state: {
+              idConductor: response.data.id,
+              nombres: response.data.nombres
+          }
+      });
+      }
+      else setError(true);
+    }))
+    
   }
 
   return (
@@ -51,7 +75,15 @@ export const LoginConductor = () => {
             <Typography className='datos-titulo'>Número de DNI:</Typography>
           </Grid>
           <Grid item>
-            <TextField variant="outlined" fullWidth/>
+            <TextField 
+              variant="outlined" 
+              className='textfield-dni'
+              onChange={(e) => {
+                setDni(e.target.value)
+                setError(false)
+              }}
+              value={dni}
+              fullWidth/>
           </Grid>
         </Grid>
         <Grid item className='datos'>
@@ -61,42 +93,75 @@ export const LoginConductor = () => {
           <Grid className='datos-clave'>
             <Grid item>
               <TextField 
-                className='datos-digito' 
+                className='datos-digito textfield-contrasena' 
                 variant="outlined" 
+                type="password"
                 inputProps={{ maxLength: 1 }}
                 inputRef={textfieldRefs[0]}
+                onChange={(e) => {
+                  setDigito1(e.target.value)
+                  setError(false)
+                }}
+                value={digito1}
                 onKeyDown={(e) => handleKeyDown(0, e)}
               />
             </Grid>
             <Grid item>
               <TextField 
-                className='datos-digito' 
+                className='datos-digito textfield-contrasena' 
                 variant="outlined" 
+                type="password"
                 inputProps={{ maxLength: 1 }}
                 inputRef={textfieldRefs[1]}
+                onChange={(e) => {
+                  setDigito2(e.target.value)
+                  setError(false)
+                }}
+                value={digito2}
                 onKeyDown={(e) => handleKeyDown(1, e)}
               />
             </Grid>
             <Grid item>
               <TextField 
-                className='datos-digito' 
+                className='datos-digito textfield-contrasena' 
                 variant="outlined" 
+                type="password"
                 inputProps={{ maxLength: 1 }}
                 inputRef={textfieldRefs[2]}
+                onChange={(e) => {
+                  setDigito3(e.target.value)
+                  setError(false)
+                }}
+                value={digito3}
                 onKeyDown={(e) => handleKeyDown(2, e)}
               />
             </Grid>
             <Grid item>
               <TextField 
-                className='datos-digito' 
+                className='datos-digito textfield-contrasena' 
                 variant="outlined" 
+                type="password"
                 inputProps={{ maxLength: 1 }}
                 inputRef={textfieldRefs[3]}
+                onChange={(e) => {
+                  setDigito4(e.target.value)
+                  setError(false)
+                }}
+                value={digito4}
                 onKeyDown={(e) => handleKeyDown(3, e)}
               />
             </Grid>
           </Grid>
         </Grid>
+        {error &&
+          <Grid item className='button-inicio'>
+            <Typography
+              className='mensaje-error'
+            >
+              DNI o clave incorrecta
+            </Typography>
+          </Grid>
+        }
         <Grid item className='button-inicio'>
           <Button 
             variant="contained" 

@@ -6,7 +6,7 @@ import DespacharIcon from '../../assets/icons/despachar.svg';
 
 const OrdenesCard = (props) => {
 
-  const {orden, esInicio} = props;
+  const { orden, esInicio, detalleAction, despacharAction } = props;
   
   React.useEffect(() => {
 
@@ -21,10 +21,10 @@ const OrdenesCard = (props) => {
             {orden.cliente}
           </Typography>
           <Typography className='orden-producto'>
-            {"Producto: " + orden.producto}
+            {"Producto: " + orden.producto + " " + orden.marca}
           </Typography>
           <Typography className='orden-producto'>
-            {"Cantidad: " + orden.cantidad}
+            {"Cantidad: " + orden.cantidad + " " + orden.unidad}
           </Typography>
         </Grid>
         <Grid item className='botones-card'>
@@ -32,13 +32,14 @@ const OrdenesCard = (props) => {
             <Grid container >
               <Button
                 variant="contained"
-                className='boton-detalle-mitad'
+                className='boton-detalle'
                 startIcon={
                   <img
                     src={DetalleIcon}
                     alt="Logo del sistema SIDEP"
                   />
                 }
+                onClick={detalleAction}
               >
                 Ver detalle
               </Button>
@@ -51,6 +52,7 @@ const OrdenesCard = (props) => {
                     alt="Logo del sistema SIDEP"
                   />
                 }
+                onClick={despacharAction}
               >
                 Despachar
               </Button>
