@@ -7,8 +7,6 @@ export const auth = (dni, clave) => {
       username: dni,
       password: clave,
   }
-  console.log("DNI: " + dni);
-  console.log("Clave: " + clave);
   return axios.post(
     API_URL.url + "conductor/auth", 
     obj

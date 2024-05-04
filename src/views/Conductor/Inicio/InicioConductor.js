@@ -102,7 +102,6 @@ const InicioConductor = () => {
   const handleRegistrar = () => {
     registrarDespachoByIdOrden(ordenDespachar.idOrdenRecojo)
     .then(function(response){
-      console.log(response);
       let errorMessage = response.data.errorMessage;
       let parts = errorMessage.split("+").filter(part => part.trim() !== "");
       let formattedMessages = parts.map((part) => part.trim());
