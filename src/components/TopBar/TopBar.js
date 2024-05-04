@@ -14,7 +14,7 @@ const TobBar = (props) => {
     const logOut = () => {
         localStorage.clear();
         localStorage.setItem("sesion", JSON.stringify(true));
-        if(direccion === 1) navigate("/login");
+        if(direccion === 1) navigate("/");
         else if (direccion === 2) navigate("/revisor/login");
     };
 
