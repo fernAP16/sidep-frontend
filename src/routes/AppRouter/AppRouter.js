@@ -35,7 +35,7 @@ export const AppRouter = (props) => {
 
     let routes = (
         <Routes>
-            <Route index path={ROUTES.LOGIN_CONDUCTOR} element = {<LoginConductor/>}/>
+            <Route index element = {<LoginConductor/>}/>
             <Route path={ROUTES.DESPACHO_TURNO_ESPERA} element={/*loading === true ? <></> : */<Layout><TurnoEspera/></Layout>}/>
             <Route path={ROUTES.INICIO_CONDUCTOR} element={/*loading === true ? <></> : */<Layout><InicioConductor/></Layout>}/>
             <Route path={ROUTES.HISTORIAL_CONDUCTOR} element={/*loading === true ? <></> : */<Layout><Historial/></Layout>}/>
