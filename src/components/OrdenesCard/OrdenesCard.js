@@ -1,12 +1,12 @@
 import { Button, Card, Grid, Typography } from '@mui/material';
 import React from 'react';
-import './OrdenesCard.css';
 import DetalleIcon from '../../assets/icons/detalle.svg';
 import DespacharIcon from '../../assets/icons/despachar.svg';
+import './OrdenesCard.css';
 
 const OrdenesCard = (props) => {
 
-  const { orden, esInicio, detalleAction, despacharAction } = props;
+  const { orden, esInicio, detalleAction, despacharAction, estado, estaDespachando } = props;
   
   React.useEffect(() => {
 
@@ -45,16 +45,18 @@ const OrdenesCard = (props) => {
               </Button>
               <Button
                 variant="contained"
-                className='boton-despacho'
-                startIcon={
+                className={ (estado === 2 && estaDespachando) ? 'boton-continuar' : 'boton-despacho'}
+                startIcon={ (estado === 1 && !estaDespachando) ?
                   <img
                     src={DespacharIcon}
                     alt="Logo del sistema SIDEP"
                   />
+                  : <></>
                 }
                 onClick={despacharAction}
+                disabled={estado === 1 && estaDespachando}
               >
-                Despachar
+                {(estado === 2 && estaDespachando) ? <>Continuar despacho</> : <>Despachar</>}
               </Button>
             </Grid>
           : 

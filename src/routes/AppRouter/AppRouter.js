@@ -12,6 +12,7 @@ import { LoginRevisor } from '../../views/Revisor/Login/Login.js';
 import { InicioRevisor } from '../../views/Revisor/Inicio/InicioRevisor.js';
 import { LayoutRevisor } from '../../hoc/LayoutRevisor.js';
 import { DetalleOrden } from '../../views/Conductor/Inicio/DetalleOrden.js';
+import Despacho from '../../views/Conductor/Despacho/Despacho.js';
 
 export const AppRouter = (props) => {
 
@@ -35,14 +36,21 @@ export const AppRouter = (props) => {
 
     let routes = (
         <Routes>
+            {/* General conductor */}
             <Route index element = {<LoginConductor/>}/>
-            <Route path={ROUTES.DESPACHO_TURNO_ESPERA} element={/*loading === true ? <></> : */<Layout><TurnoEspera/></Layout>}/>
             <Route path={ROUTES.INICIO_CONDUCTOR} element={/*loading === true ? <></> : */<Layout><InicioConductor/></Layout>}/>
             <Route path={ROUTES.HISTORIAL_CONDUCTOR} element={/*loading === true ? <></> : */<Layout><Historial/></Layout>}/>
             <Route path={ROUTES.DETALLE_CONDUCTOR} element={/*loading === true ? <></> : */<Layout><DetalleOrden/></Layout>}/>
 
+            {/* Despacho conductor */}
+            <Route path={ROUTES.DESPACHO_INICIO} element={/*loading === true ? <></> : */<Layout><Despacho/></Layout>}/>
+            <Route path={ROUTES.DESPACHO_TURNO_ESPERA} element={/*loading === true ? <></> : */<Layout><TurnoEspera/></Layout>}/>
+
+            {/* General revisor */}
             <Route path={ROUTES.LOGIN_REVISOR} element = {<LoginRevisor/>}/>
             <Route path={ROUTES.INICIO_REVISOR} element={/*loading === true ? <></> : */<LayoutRevisor><InicioRevisor/></LayoutRevisor>}/>
+
+            {/* General Balanza */}
         </Routes>
     )
 

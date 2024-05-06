@@ -42,6 +42,14 @@
     background-color: #EF6C00;
 }
 
+.boton-continuar{
+    height: 40px;
+    width: 50%;
+    border-radius: 0px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
 .boton-despacho{
     background-color: #00A71B;
     height: 40px;

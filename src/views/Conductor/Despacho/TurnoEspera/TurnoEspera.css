@@ -1,0 +1,61 @@
+.titulo-card {
+    display: flex;
+    position: relative;
+    justify-content: center; 
+    font-size: 26px;
+    margin-top: 40px;
+
+}
+
+.turno-asignado-card{
+    display: flex;
+    position: relative;
+    justify-content: center; 
+    font-size: 80px;
+    font-weight: lighter;
+    margin-top: 20px;
+    color: #D32F2F;
+}
+
+.grid-etiquetas{
+    display: flex;
+    position: relative;
+    flex-direction: column;
+}
+
+.grid-espacio{
+    margin-top: 25px;
+}
+
+.turno-etiqueta-card{
+    display: flex;
+    position: relative;
+    font-size: 26px;
+    margin-left: 20px;
+    width: 170px;
+}
+
+.turno-valor-card{
+    display: flex;
+    position: relative;
+    font-size: 26px;
+    margin-left: 20px;
+    color: #D32F2F;
+}
+
+.button-turno{
+    display: flex;
+    position: relative;
+    font-size: 26px;
+    font-weight: lighter;
+    margin: 30px 20px;
+    width: 100%;
+}
+
+.turno-card{
+    background: #FFFFFF;
+    border: 0.5px solid rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 0px;
+    margin-bottom: 30px;
+}

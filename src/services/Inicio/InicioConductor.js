@@ -15,3 +15,9 @@ export const registrarDespachoByIdOrden = (id) => {
     obj
   )
 }
+
+export const obtenerUltimoDespachoPorOden = (idOrden) => {
+  return axios.post(
+    API_URL.url + "despacho/orden/" + idOrden
+  )
+}

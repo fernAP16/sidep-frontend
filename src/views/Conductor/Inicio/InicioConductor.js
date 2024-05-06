@@ -2,11 +2,12 @@ import React from 'react';
 import './InicioConductor.css';
 import { Box, Button, Grid, Modal, Typography } from '@mui/material';
 import OrdenesCard from '../../../components/OrdenesCard/OrdenesCard';
-import { getOrdenesByIdConductor, registrarDespachoByIdOrden } from '../../../services/Inicio/InicioConductor';
+import { getOrdenesByIdConductor, obtenerUltimoDespachoPorOden, registrarDespachoByIdOrden } from '../../../services/Inicio/InicioConductor';
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { capitalizeFirstLetterInWords, formatoHoraMMSS_AMPM } from '../../../constants/commonfunctions';
 import '../../../constants/commonStyle.css';
 import * as ROUTES from '../../../routes/routes';
+import { registrarTurnoEspera } from '../../../services/Despacho/TurnoEspera';
 
 const InicioConductor = () => {
 
@@ -21,6 +22,9 @@ const InicioConductor = () => {
   const [openErrors, setOpenErrors] = React.useState(false);
   const [ordenDespachar, setOrdenDespachar] = React.useState({});
   const [messageError, setMessageError] = React.useState([]);
+  const [idDespachoRegistrado, setIdDespachoRegistrado] = React.useState(null);
+  const [idPlanta, setIdPlanta] = React.useState(null);
+  const [estaDespachando, setEstaDespachando] = React.useState(0);
   
   const style = {
     position: 'absolute',
@@ -39,7 +43,7 @@ const InicioConductor = () => {
   React.useEffect(() => {
     let nomb = (state && state.nombres) ? state.nombres.split(' ') : localStorage.getItem('nombres').split(' ');
     setNombres(nomb[0].charAt(0) + nomb[0].slice(1).toLowerCase() + " " + nomb[1].charAt(0) + nomb[1].slice(1).toLowerCase());
-    getOrdenesByIdConductor((state && state.idConductor) ? state.idConductor : localStorage.getItem('idConductor'))
+    getOrdenesByIdConductor((state && state.idConductor) ? state.idConductor : parseInt(localStorage.getItem('idConductor')))
     .then(function(response){
       let array = [];
       let arrayFull = [];
@@ -50,15 +54,17 @@ const InicioConductor = () => {
           producto: element.productoVenta.producto.nombre,
           marca: element.productoVenta.marca.nombre,
           unidad: element.productoVenta.unidad.nombre,
-          cantidad: element.cantidad
+          cantidad: element.cantidad,
+          estado: element.estadoOrden.idEstadoOrden
         })
         arrayFull.push(element);
+        if(element.estadoOrden.idEstadoOrden === 2)setEstaDespachando(1);
       });
       setOrdenes(array);
       setOrdenesFull(arrayFull);
     })
-    .catch(function(error){
-      console.log(error);
+    .catch(function(err){
+      console.log(err);
     })
     .finally({
 
@@ -72,15 +78,31 @@ const InicioConductor = () => {
       state: {
           orden: ordenDetalle[0],
           nombres: nombres,
-          idConductor: (state && state.idConductor) ? state.idConductor : localStorage.getItem('idConductor')
+          idConductor: (state && state.idConductor) ? state.idConductor : parseInt(localStorage.getItem('idConductor'))
       }
     })
   }
 
-  const despachar = (ord) => {
+  const continuarDespacho = (ord) => {
     let ordenReg = ordenesFull.filter((orden) => orden.idOrdenRecojo === ord.idOrden)
-    setOrdenDespachar(ordenReg[0]);
-    setOpenToConfirm(true);
+    if(ord.estado === 1){
+      setOrdenDespachar(ordenReg[0]);
+      setOpenToConfirm(true);
+    } else if(ord.estado === 2){
+      obtenerUltimoDespachoPorOden(ord.idOrden)
+      .then(function(response){
+        navigate(ROUTES.DESPACHO_INICIO, {
+          state: {
+            idDespacho: response.data.idDespacho,
+            nombres: nombres,
+            idConductor: (state && state.idConductor) ? state.idConductor : parseInt(localStorage.getItem('idConductor'))
+          }
+        })
+      })
+      .catch(function(err){
+        console.log(err);
+      })
+    }
   }
 
   const handleCloseToConfirm = () => {
@@ -93,6 +115,19 @@ const InicioConductor = () => {
 
   const handleCloseRegistered = () => {
     setOpenRegistered(false);
+    registrarTurnoEspera(idDespachoRegistrado, idPlanta)
+    .then(function(response) {
+      navigate(ROUTES.DESPACHO_INICIO, {
+        state: {
+          idDespacho: idDespachoRegistrado,
+          nombres: nombres,
+          idConductor: (state && state.idConductor) ? state.idConductor : parseInt(localStorage.getItem('idConductor'))
+        }  
+      })
+    }).catch(function(err){
+      console.log(err);
+    })
+    
   };
   
   const handleVolver = () => {
@@ -102,12 +137,14 @@ const InicioConductor = () => {
   const handleRegistrar = () => {
     registrarDespachoByIdOrden(ordenDespachar.idOrdenRecojo)
     .then(function(response){
-      let errorMessage = response.data.errorMessage;
-      let parts = errorMessage.split("+").filter(part => part.trim() !== "");
-      let formattedMessages = parts.map((part) => part.trim());
       if(response.data.idDespacho !== null){
+        setIdDespachoRegistrado(response.data.idDespacho);
+        setIdPlanta(response.data.idPlanta);
         setOpenRegistered(true);
       } else {
+        let errorMessage = response.data.errorMessage;
+        let parts = errorMessage.split("+").filter(part => part.trim() !== "");
+        let formattedMessages = parts.map((part) => part.trim());
         setMessageError(formattedMessages);
         setOpenErrors(true);
       }
@@ -135,7 +172,9 @@ const InicioConductor = () => {
           orden={ord}
           esInicio
           detalleAction={() => detalleOrden(ord)}
-          despacharAction={() => despachar(ord)}
+          despacharAction={() => continuarDespacho(ord)}
+          estado={ord.estado}
+          estaDespachando={estaDespachando}
         />
       )
       })}
@@ -218,7 +257,7 @@ const InicioConductor = () => {
                 className='modal-boton-solo'
                 onClick={() => handleCloseRegistered()}
               >
-                OK
+                GENERAR TURNO
               </Button>
             </Grid>
           </Grid>

@@ -22,7 +22,7 @@ const Layout = (props) => {
 
     const switchBottomOption = () =>{
         switch(location.pathname){
-            case ROUTES.DESPACHO_TURNO_ESPERA:
+            case ROUTES.DESPACHO_INICIO:
                 setValue(0);
                 break;
             case ROUTES.INICIO_CONDUCTOR:
@@ -51,7 +51,7 @@ const Layout = (props) => {
     const changeMenuOption = (value) =>{
         switch(value){
             case 0:
-                navigate(ROUTES.DESPACHO_TURNO_ESPERA);
+                navigate(ROUTES.DESPACHO_INICIO);
                 break;
             case 1:
                 navigate(ROUTES.INICIO_CONDUCTOR);

@@ -7,8 +7,6 @@ export const authRevisor = (dni, contra) => {
       username: dni,
       password: contra,
   }
-  console.log("DNI: " + dni);
-  console.log("Contra: " + contra);
   return axios.post(
     API_URL.url + "revisor/auth", 
     obj

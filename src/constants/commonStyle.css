@@ -2,3 +2,22 @@
     margin: 30px 20px 80px 20px;
     overflow-y: scroll;
 }
+
+.titulo-usuario-grid {
+    margin-bottom: 20px;
+}
+
+.titulo-usuario-text {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.titulo-ordenes-grid {
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+.titulo-ordenes-text {
+    font-size: 22px;
+    font-weight: bold;
+}
