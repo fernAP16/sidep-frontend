@@ -14,13 +14,11 @@ const Despacho = () => {
   const [paso, setPaso] = React.useState('');
 
   React.useEffect(() => { 
-    console.log(state);
     let nomb = (state && state.nombres) ? state.nombres.split(' ') : localStorage.getItem('nombres').split(' ');
     setNombres(nomb[0].charAt(0) + nomb[0].slice(1).toLowerCase() + " " + nomb[1].charAt(0) + nomb[1].slice(1).toLowerCase());
     const id = (state && state.idConductor ? state.idConductor : localStorage.getItem('idConductor'));
     getEstadoDespacho(id)
     .then(function(response){
-        console.log(response);
         let estado = response.data.idEstadoOrden;
         if(estado === 0){ // No hay despacho
             // Usted no se encuentra despachando ningún producto

@@ -18,7 +18,6 @@ const TurnoEspera = () => {
     const idPlanta = state.idPlanta;
     getTurnoEspera(idDespacho, idPlanta)
     .then(function(response){
-      console.log(response);
       if(response.data.idTurnoRevision !== 0){
         const turnoAsignado = response.data.turnoAsignado
         const turnoActual = response.data.turnoActual
@@ -26,8 +25,6 @@ const TurnoEspera = () => {
         setTurnoActual(turnoActual);
         if(turnoActual >= turnoAsignado){
           setEstado("Su turno");
-        } else if(turnoAsignado - turnoActual === 0){
-          setEstado("Es el siguiente");
         } else {
           setEstado("En espera");
         }
