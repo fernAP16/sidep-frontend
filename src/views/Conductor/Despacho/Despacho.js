@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { getEstadoDespacho } from '../../../services/Despacho/TurnoEspera';
 import * as ROUTES from '../../../routes/routes';
 import { Grid, Typography } from '@mui/material';
+import '../../../constants/commonStyle.css';
 
 const Despacho = () => {
 
@@ -66,7 +67,7 @@ const Despacho = () => {
   }, [])
 
   return (
-    <div  className='margin-pantalla'>
+    <div className='margin-pantalla'>
       <Grid className='titulo-usuario-grid'>
         <Typography className = "titulo-usuario-text">Hola, {nombres}</Typography>
       </Grid>

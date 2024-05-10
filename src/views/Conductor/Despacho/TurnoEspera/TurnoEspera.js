@@ -3,12 +3,13 @@ import './TurnoEspera.css';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { getTurnoEspera } from '../../../../services/Despacho/TurnoEspera';
 import { Button, Card, Grid, Typography } from '@mui/material';
+import * as ROUTES from '../../../../routes/routes';
 
 const TurnoEspera = () => {
 
   let { state } = useLocation(); // idDespacho, idPlanta
   let navigate = useNavigate();
-  const [idTurnoRevision, setIdTurnoRevision] = React.useState('');
+
   const [turnoAsignado, setTurnoAsignado] = React.useState(0);
   const [turnoActual, setTurnoActual] = React.useState(0);
   const [estado, setEstado] = React.useState('');
@@ -43,7 +44,11 @@ const TurnoEspera = () => {
   }, [])
 
   const handleIniciarDespacho = () => {
-
+    navigate(ROUTES.DESPACHO_REVISION, {
+      state: {
+          idRevision: 1
+      }
+  });
   }
 
   return (

@@ -1,0 +1,21 @@
+.titulo-revision-grid{
+    display: flex;
+    margin-bottom: 30px;
+    align-items: center;
+}
+
+.titulo-revision {
+    font-size: 22px;
+    font-weight: bold;
+    color: #D32F2F;
+    margin-right: 20px;
+}
+
+.punto-control{
+    font-size: 22px;
+    font-weight: bold;
+    color: #FFFFFF;
+    background-color: #D32F2F;
+    padding: 5px 10px;
+    border-radius: 10px;
+}
