@@ -24,9 +24,9 @@ export const LayoutRevisor = (props) => {
             case ROUTES.INICIO_REVISOR:
                 setValue(0);
                 break;
-            // case ROUTES.REVISION_REVISOR:
-            //     setValue(1);
-            //     break;
+            case ROUTES.REVISION_REVISOR:
+                setValue(1);
+                break;
             default:
                 break;
         };
@@ -49,9 +49,9 @@ export const LayoutRevisor = (props) => {
             case 0:
                 navigate(ROUTES.INICIO_REVISOR);
                 break;
-            // case 1:
-            //     navigate(ROUTES.REVISION_REVISOR);
-            //     break;
+            case 1:
+                navigate(ROUTES.REVISION_REVISOR);
+                break;
             default:
                 break;
         };

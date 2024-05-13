@@ -14,6 +14,7 @@ import { LayoutRevisor } from '../../hoc/LayoutRevisor.js';
 import { DetalleOrden } from '../../views/Conductor/Inicio/DetalleOrden.js';
 import Despacho from '../../views/Conductor/Despacho/Despacho.js';
 import { Revision } from '../../views/Conductor/Despacho/Revision/Revision.js';
+import { RevisionRev } from '../../views/Revisor/Revision/RevisionRev.js';
 
 export const AppRouter = (props) => {
 
@@ -51,6 +52,7 @@ export const AppRouter = (props) => {
             {/* General revisor */}
             <Route path={ROUTES.LOGIN_REVISOR} element = {<LoginRevisor/>}/>
             <Route path={ROUTES.INICIO_REVISOR} element={/*loading === true ? <></> : */<LayoutRevisor><InicioRevisor/></LayoutRevisor>}/>
+            <Route path={ROUTES.REVISION_REVISOR} element={/*loading === true ? <></> : */<LayoutRevisor><RevisionRev/></LayoutRevisor>}/>
 
             {/* General Balanza */}
         </Routes>

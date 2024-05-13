@@ -25,11 +25,11 @@ export const LoginRevisor = () => {
     }
     authRevisor(dni, contra)
     .then((function(response) {
-      localStorage.setItem('idConductor', response.data.id);
+      localStorage.setItem('idRevisor', response.data.id);
       localStorage.setItem('nombres', response.data.nombres);
       if(response.data.status)navigate(ROUTES.INICIO_REVISOR, {
         state: {
-            idConductor: response.data.id,
+            idRevisor: response.data.id,
             nombres: response.data.nombres
         }
       });

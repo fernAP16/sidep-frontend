@@ -1,5 +1,5 @@
 .margin-pantalla{
-    margin: 30px 20px 80px 20px;
+    margin: 30px 20px 120px 20px;
     overflow-y: scroll;
 }
 
@@ -8,16 +8,16 @@
 }
 
 .titulo-usuario-text {
-    font-size: 30px;
+    font-size: 26px;
     font-weight: bold;
 }
 
 .titulo-ordenes-grid {
     margin-top: 20px;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
 }
 
 .titulo-ordenes-text {
-    font-size: 22px;
+    font-size: 20px;
     font-weight: bold;
 }

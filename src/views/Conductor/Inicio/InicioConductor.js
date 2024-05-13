@@ -168,7 +168,8 @@ const InicioConductor = () => {
         <Typography className = "titulo-ordenes-text">Órdenes de recojo registradas ({ordenes.length}):</Typography>
       </Grid>
       {ordenes.map((ord) => {
-        return (<OrdenesCard
+        return (
+        <OrdenesCard
           orden={ord}
           esInicio
           detalleAction={() => detalleOrden(ord)}
