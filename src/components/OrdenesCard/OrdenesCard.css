@@ -3,7 +3,8 @@
     border: 0.5px solid rgba(0, 0, 0, 0.2);
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 10px;
-    margin-bottom: 30px;
+    margin-top: 20px;
+    margin-bottom: 10px;
 }
 
 .orden-datos {
@@ -19,7 +20,7 @@
 }
 
 .orden-producto {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
     margin-top: 10px;
 }
@@ -40,6 +41,14 @@
 
 .css-vkah-MuiButtonBase-root-MuiButton-root:hover.boton-detalle{
     background-color: #EF6C00;
+}
+
+.boton-continuar{
+    height: 40px;
+    width: 50%;
+    border-radius: 0px;
+    font-size: 16px;
+    font-weight: bold;
 }
 
 .boton-despacho{

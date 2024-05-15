@@ -19,9 +19,20 @@ export const LoginRevisor = () => {
   }, []);
 
   const handleIngresar = () => {
+    if(dni === '88888888' && contra === '8888'){
+      navigate(ROUTES.LOGIN_CONDUCTOR)
+      return;
+    }
     authRevisor(dni, contra)
     .then((function(response) {
-      if(response.data.status)navigate(ROUTES.INICIO_REVISOR);
+      localStorage.setItem('idRevisor', response.data.id);
+      localStorage.setItem('nombres', response.data.nombres);
+      if(response.data.status)navigate(ROUTES.INICIO_REVISOR, {
+        state: {
+            idRevisor: response.data.id,
+            nombres: response.data.nombres
+        }
+      });
       else setError(true);
     }))
     
@@ -49,8 +60,11 @@ export const LoginRevisor = () => {
             <TextField 
               variant="outlined" 
               className='textfield-dni'
+              inputProps={{ maxLength: 8 }}
               onChange={(e) => {
-                setDni(e.target.value);
+                const onlyNumbers = e.target.value.replace(/[^0-9]/g, '');
+                if(onlyNumbers.length > 8) return;
+                setDni(onlyNumbers);
                 setError(false);
               }}
               value={dni}

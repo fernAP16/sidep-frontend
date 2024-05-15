@@ -1,0 +1,59 @@
+.grid-puntos-control{
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+}
+
+.form-puntos-control{
+    display: flex;
+    position: relative;
+    width: 100%;
+}
+
+.column-punto-control{
+    display: flex;
+    position: relative;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.five-punto-control{
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 20px;
+}
+
+.grid-radio-buttons{
+    display: flex;
+    position: relative;
+    align-items: center;
+}
+
+.button-punto-control{
+    margin-bottom: 20px;
+}
+
+.text-radio-buttons{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.grid-button-ingresar{
+    display: flex;
+    position: relative;
+    bottom: 0;
+    height: 36px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.button-ingresar{
+    font-size: 16px;
+    font-weight: lighter;
+    width: 100%;
+    
+}

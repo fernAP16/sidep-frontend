@@ -8,10 +8,20 @@ export const getOrdenesByIdConductor = (idConductor) => {
   )
 }
 
-export const registrarDespachoByIdOrden = (id) => {
-  const obj = { idOrden: id }
+export const registrarDespachoByIdOrden = (id, x, y) => {
+  const obj = {
+    idOrden: id,
+    x: x,
+    y: y
+  }
   return axios.post(
     API_URL.url + "despacho/registrar",
     obj
+  )
+}
+
+export const obtenerUltimoDespachoPorOden = (idOrden) => {
+  return axios.post(
+    API_URL.url + "despacho/orden/" + idOrden
   )
 }
