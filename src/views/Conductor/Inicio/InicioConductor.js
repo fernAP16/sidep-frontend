@@ -135,7 +135,9 @@ const InicioConductor = () => {
   };
 
   const handleRegistrar = () => {
-    registrarDespachoByIdOrden(ordenDespachar.idOrdenRecojo)
+    const x = 10.5;
+    const y = 25
+    registrarDespachoByIdOrden(ordenDespachar.idOrdenRecojo, x, y)
     .then(function(response){
       if(response.data.idDespacho !== null){
         setIdDespachoRegistrado(response.data.idDespacho);

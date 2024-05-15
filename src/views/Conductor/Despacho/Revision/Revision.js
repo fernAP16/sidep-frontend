@@ -29,7 +29,7 @@ export const Revision = () => {
     return (
         <>
             <ProgressBar fase={1}/>
-            <div className='margin-pantalla'>
+            <div className='margin-pantalla-despacho'>
                 <Grid className='titulo-revision-grid'>
                     <Typography className = "titulo-revision">Punto de control asignado: </Typography>
                     <Typography className = "punto-control">C2</Typography>

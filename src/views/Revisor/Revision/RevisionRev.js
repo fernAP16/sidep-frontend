@@ -1,9 +1,10 @@
 import React from 'react';
 import '../../../constants/commonStyle.css';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Box, Button, Card, Grid, Modal, Typography } from '@mui/material';
+import { Box, Button, Card, Checkbox, FormControlLabel, FormGroup, Grid, Modal, Typography } from '@mui/material';
 import './RevisionRev.css';
 import * as ROUTES from '../../../routes/routes';
+import { getIncidencias } from '../../../services/Despacho/Revision';
 
 export const RevisionRev = () => {
 
@@ -12,8 +13,10 @@ export const RevisionRev = () => {
 
   const [puntoControl, setPuntoControl] = React.useState('');
   const [orden, setOrden] = React.useState('');
-  const [abandona, setAbandona] = React.useState(false);
+  const [openAbandonar, setOpenAbandonar] = React.useState(false);
   const [openAprobar, setOpenAprobar] = React.useState(false);
+  const [openIncidencia, setOpenIncidencia] = React.useState(false);
+  const [incidencias, setIncidencias] = React.useState([]);
 
   const style = {
     position: 'absolute',
@@ -47,15 +50,57 @@ export const RevisionRev = () => {
       tracto: 'CFA-485',
       carreta: 'FD-5189'
     })
+    getIncidencias()
+    .then(function(response){
+      let arrInc = []
+      response.data.forEach(element => {
+        arrInc.push({
+          id: element.idIncidencia,
+          nombre: element.nombre,
+          checked: false
+        })
+      });
+      setIncidencias(arrInc);
+    })
+    .catch(function(err){
+      console.log(err);
+    })
+    .finally(() => {
+
+    })
   }, []);
 
   const handleClickAprobar = () => {
     setOpenAprobar(true);
   }
 
+  const handleClickIncidencia = () => {
+    setOpenIncidencia(true);
+  }
+
+  const handleClickAbandonar = () => {
+    setOpenAbandonar(true);
+  }
+
   const handleCloseAprobar = () => {
     setOpenAprobar(false);
   }
+
+  const handleCloseIncidencia = () => {
+    setOpenIncidencia(false);
+  }
+
+  const handleCloseAbandonar = () => {
+    setOpenAbandonar(false);
+  }
+
+  const handleCheckboxChange = (id) => {
+    setIncidencias((prevState) =>
+      prevState.map((inc) =>
+        inc.id === id ? { ...inc, checked: !inc.checked } : inc
+      )
+    );
+  };
 
   return (
     <div className='margin-pantalla'>
@@ -130,7 +175,7 @@ export const RevisionRev = () => {
           <Button 
             variant="contained" 
             className='button-abandonar'
-            onClick={() => setAbandona(true)}
+            onClick={handleClickAbandonar}
           >
               ABANDONAR REVISIÓN
           </Button>
@@ -146,6 +191,7 @@ export const RevisionRev = () => {
           <Button
             variant="contained" 
             className='button-accion'
+            onClick={handleClickIncidencia}
           >
             HAY INCIDENCIA
           </Button>
@@ -163,18 +209,93 @@ export const RevisionRev = () => {
           </Grid>
           <Grid className='modal-aprobar-buttons'>
             <Button
-              className='modal-aprobar-volver'
+              className='one-button'
               variant='outlined'
               onClick={handleCloseAprobar}
             >
               VOLVER
             </Button>
             <Button
-              className='modal-aprobar-aprobar'
+              className='one-button'
               variant='contained'
               // onClick={handleCloseAprobar}
             >
               APROBAR
+            </Button>
+          </Grid>
+        </Box>
+      </Modal>
+      <Modal
+        open={openIncidencia}
+        onClose={handleCloseIncidencia}
+      >
+        <Box sx={{ ...style}}>
+          <Grid className='grid-incidencia'>
+            <Typography className='titulo-incidencia'>
+              Incidencias identificadas
+            </Typography>
+          </Grid>
+          <Grid className='grid-incidencia'>
+            <Typography className='label-incidencia'>
+              Marque las incidencias que se encontraron en la revisión:
+            </Typography>
+          </Grid>
+          <Grid>
+          <FormGroup className='form-incidencias'>
+            {incidencias.map((inc) => {
+              return (<FormControlLabel 
+                id={inc.id}
+                control={<Checkbox/>}
+                label={inc.nombre}
+                checked={inc.checked}
+                onChange={() => handleCheckboxChange(inc.id)}
+              />
+              )}
+            )}
+          </FormGroup>
+          </Grid>
+          <Grid className='incidencia-buttons'>
+            <Button
+              className='one-button'
+              variant='outlined'
+              onClick={handleCloseIncidencia}
+            >
+              VOLVER
+            </Button>
+            <Button
+              className='one-button'
+              variant='contained'
+              // onClick={handleCloseRegistrarIncidencias}
+            >
+              REGISTRAR
+            </Button>
+          </Grid>
+        </Box>
+      </Modal>
+      <Modal
+        open={openAbandonar}
+        onClose={handleCloseAbandonar}
+      >
+        <Box sx={{ ...style}}>
+          <Grid className='grid-pregunta'>
+            <Typography className='modal-pregunta'>
+            ¿Está seguro de abandonar el punto de control?
+            </Typography>
+          </Grid>
+          <Grid className='modal-aprobar-buttons'>
+            <Button
+              className='one-button'
+              variant='outlined'
+              onClick={handleCloseAbandonar}
+            >
+              VOLVER
+            </Button>
+            <Button
+              className='one-button'
+              variant='contained'
+              // onClick={handleCloseAprobar}
+            >
+              OK
             </Button>
           </Grid>
         </Box>

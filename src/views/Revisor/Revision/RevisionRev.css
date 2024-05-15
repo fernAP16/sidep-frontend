@@ -141,10 +141,37 @@
     justify-content: space-around;
 }
 
-.modal-aprobar-volver{
+.one-button{
     height: 32px;
+    font-size: 16px;
+    font-weight: normal;
 }
 
-.modal-aprobar-aprobar{
-    height: 32px;
+.grid-incidencia{
+    display: flex;
+    position: relative;
+    justify-content: center;
+    margin: 5px 5px 15px 5px;
+}
+
+.titulo-incidencia{
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.label-incidencia{
+    font-size: 18px;
+    font-weight: normal;
+}
+
+.incidencia-buttons{
+    display: flex;
+    position: relative;
+    justify-content: space-around;
+}
+
+.form-incidencias{
+    margin-left: 20px;
+    margin-bottom: 20px;
 }

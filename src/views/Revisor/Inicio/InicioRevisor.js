@@ -6,6 +6,7 @@ import '../../../constants/commonStyle.css';
 import CheckIcon from '../../../assets/icons/check.svg';
 import NotAvailableIcon from '../../../assets/icons/NotAvailable.svg';
 import * as ROUTES from '../../../routes/routes';
+import { getPuntosControlPorPlanta } from '../../../services/Inicio/InicioRevisor';
 
 export const InicioRevisor = () => {
 
@@ -16,57 +17,25 @@ export const InicioRevisor = () => {
   const [selectedPuntoControl, setSelectedPuntoControl] = React.useState(null);
 
   React.useEffect(() => {
-    
+    const idPlanta = 1;
     const resultado = [];
     let nomb = (state && state.nombres) ? state.nombres.split(' ') : localStorage.getItem('nombres').split(' ');
     setNombres(nomb[0].charAt(0) + nomb[0].slice(1).toLowerCase() + " " + nomb[1].charAt(0) + nomb[1].slice(1).toLowerCase());
-    const arrayPuntosControl = [
-      {
-        codigo: 'C1',
-        disponible: true
-      },
-      {
-        codigo: 'C2',
-        disponible: true
-      },
-      {
-        codigo: 'C3',
-        disponible: false
-      },
-      {
-        codigo: 'C4',
-        disponible: true
-      },
-      {
-        codigo: 'C5',
-        disponible: true
-      },
-      {
-        codigo: 'C6',
-        disponible: false
-      },
-      {
-        codigo: 'C7',
-        disponible: true
-      },
-      {
-        codigo: 'C8',
-        disponible: false
-      },
-      {
-        codigo: 'C9',
-        disponible: false
-      },
-      {
-        codigo: 'C10',
-        disponible: true
-      },
-    ]
-    for (let i = 0; i < arrayPuntosControl.length; i += 5) {
-      let subarreglo = arrayPuntosControl.slice(i, i + 5);
-      resultado[i/5] = subarreglo;
-    }
-    setPuntosControl(resultado);
+    getPuntosControlPorPlanta(idPlanta)
+    .then(function(response){
+      for (let i = 0; i < response.data.length; i += 5) {
+        let subarreglo = response.data.slice(i, i + 5);
+        resultado[i/5] = subarreglo;
+      }
+      setPuntosControl(resultado);
+    })
+    .catch(function(err){
+
+    })
+    .finally(() => {
+
+    })
+    
   }, []);
 
   const handleSelectPuntoControl = (event) => {
@@ -75,7 +44,6 @@ export const InicioRevisor = () => {
 
   const handleIngresar = () => {
     if(!selectedPuntoControl) return;
-    console.log(selectedPuntoControl)
     navigate(ROUTES.REVISION_REVISOR, {
       state: {
         idRevisor: (state && state.idRevisor) ? state.idRevisor : parseInt(localStorage.getItem('idRevisor')),
@@ -99,18 +67,18 @@ export const InicioRevisor = () => {
               <div key={index} className='five-punto-control'>
                 {subArreglo.map((ptControl) => (
                   <FormControlLabel
-                    key={ptControl.codigo}
+                    key={ptControl.codigoPuntoControl}
                     className="button-punto-control"
-                    value={ptControl.codigo}
+                    value={ptControl.codigoPuntoControl}
                     control={<Radio />}
-                    disabled={!ptControl.disponible}
+                    disabled={ptControl.disponible!==null}
                     label={
                       <Grid item container className='grid-radio-buttons'>
                         <Typography className='text-radio-buttons'>
-                          {ptControl.codigo}
+                          {ptControl.codigoPuntoControl}
                         </Typography>
                         <img
-                          src={ptControl.disponible ? CheckIcon : NotAvailableIcon}>
+                          src={ptControl.disponible===null ? CheckIcon : NotAvailableIcon}>
                         </img>
                       </Grid>
                     }
