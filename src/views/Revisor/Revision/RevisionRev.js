@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { Box, Button, Card, Checkbox, FormControlLabel, FormGroup, Grid, Modal, Typography } from '@mui/material';
 import './RevisionRev.css';
 import * as ROUTES from '../../../routes/routes';
-import { getIncidencias } from '../../../services/Despacho/Revision';
+import { getDespachoByIdTurnoRevision, getIncidencias } from '../../../services/Despacho/Revision';
 
 export const RevisionRev = () => {
 
@@ -33,6 +33,7 @@ export const RevisionRev = () => {
   };
 
   React.useEffect(() => {
+    console.log(state);
     if(state === null || state.puntoControl === null){
       navigate(ROUTES.INICIO_REVISOR, {
         state: {
@@ -43,13 +44,44 @@ export const RevisionRev = () => {
       return;
     }
     setPuntoControl(state.puntoControl);
-    setOrden({
-      cliente: 'Ferreteria San Marcos',
-      producto: 'Cemento LORETO',
-      cantidad: '700 bolsas de 52.5 kg',
-      tracto: 'CFA-485',
-      carreta: 'FD-5189'
+    if(state === null || state.idTurnoRevision === null){
+      // Asignar el turno_revision siguiente al conductor
+      // state.idRevisor
+      // state.puntoControl
+      
+      return;
+    }
+    getDespachoByIdTurnoRevision(state.idTurnoRevision)
+    .then(function(response){
+      console.log(response.data);
+      setOrden({
+        cliente: response.data.razonSocial,
+        producto: response.data.producto,
+        cantidad: response.data.cantidad,
+        tracto: response.data.placaTracto,
+        carreta: response.data.placaCarreta
+      })
     })
+    .catch(function(err){
+      console.log(err);
+      setOrden({
+        cliente: 'Ferreteria San Marcos',
+        producto: 'Cemento LORETO',
+        cantidad: '700 bolsas de 52.5 kg',
+        tracto: 'CFA-485',
+        carreta: 'FD-5189'
+      })
+    })
+    .finally(() => {
+      
+    })
+  }, []);
+
+  const handleClickAprobar = () => {
+    setOpenAprobar(true);
+  }
+
+  const handleClickIncidencia = () => {
     getIncidencias()
     .then(function(response){
       let arrInc = []
@@ -61,6 +93,7 @@ export const RevisionRev = () => {
         })
       });
       setIncidencias(arrInc);
+      setOpenIncidencia(true);
     })
     .catch(function(err){
       console.log(err);
@@ -68,14 +101,7 @@ export const RevisionRev = () => {
     .finally(() => {
 
     })
-  }, []);
-
-  const handleClickAprobar = () => {
-    setOpenAprobar(true);
-  }
-
-  const handleClickIncidencia = () => {
-    setOpenIncidencia(true);
+    
   }
 
   const handleClickAbandonar = () => {
