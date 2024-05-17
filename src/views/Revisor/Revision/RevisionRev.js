@@ -4,19 +4,23 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { Box, Button, Card, Checkbox, FormControlLabel, FormGroup, Grid, Modal, Typography } from '@mui/material';
 import './RevisionRev.css';
 import * as ROUTES from '../../../routes/routes';
-import { getDespachoByIdTurnoRevision, getIncidencias } from '../../../services/Despacho/Revision';
+import { aprobarRevision, getDespachoByIdTurnoRevision, getIncidencias } from '../../../services/Despacho/Revision';
 
 export const RevisionRev = () => {
 
   const { state } = useLocation();
   let navigate = useNavigate();
 
-  const [puntoControl, setPuntoControl] = React.useState('');
+  const [idRevisor, setIdRevisor] = React.useState(null);
+  const [codigoPuntoControl, setCodigoPuntoControl] = React.useState('');
+  const [idPuntoControl, setIdPuntoControl] = React.useState('');
+  const [idTurnoRevision, setIdTurnoRevision] = React.useState(null);
   const [orden, setOrden] = React.useState('');
   const [openAbandonar, setOpenAbandonar] = React.useState(false);
   const [openAprobar, setOpenAprobar] = React.useState(false);
   const [openIncidencia, setOpenIncidencia] = React.useState(false);
   const [incidencias, setIncidencias] = React.useState([]);
+  const [conductorAprobado, setConductorAprobado] = React.useState(false);
 
   const style = {
     position: 'absolute',
@@ -33,7 +37,6 @@ export const RevisionRev = () => {
   };
 
   React.useEffect(() => {
-    console.log(state);
     if(state === null || state.puntoControl === null){
       navigate(ROUTES.INICIO_REVISOR, {
         state: {
@@ -43,17 +46,17 @@ export const RevisionRev = () => {
       });
       return;
     }
-    setPuntoControl(state.puntoControl);
-    if(state === null || state.idTurnoRevision === null){
-      // Asignar el turno_revision siguiente al conductor
-      // state.idRevisor
-      // state.puntoControl
-      
-      return;
-    }
-    getDespachoByIdTurnoRevision(state.idTurnoRevision)
+    const idRevisor = ((state && state.idRevisor) ? state.idRevisor : parseInt(localStorage.getItem('idRevisor')));
+    const idPuntoControl = ((state && state.idPuntoControl) ? state.idPuntoControl : parseInt(localStorage.getItem('idPuntoControl')));
+    const codigoPuntoControl = ((state && state.codigoPuntoControl) ? state.codigoPuntoControl : 'C' + parseInt(localStorage.getItem('idPuntoControl')));
+    const idTurnoRevision = ((state && state.idTurnoRevision) ? state.idTurnoRevision : parseInt(localStorage.getItem('idTurnoRevision')));
+    const idPlanta = ((state && state.idPlanta) ? state.idPlanta : parseInt(localStorage.getItem('idPlanta')));
+    setIdRevisor(idRevisor);
+    setCodigoPuntoControl(codigoPuntoControl);
+    setIdPuntoControl(idPuntoControl);
+    setIdTurnoRevision(idTurnoRevision);
+    getDespachoByIdTurnoRevision(idTurnoRevision)
     .then(function(response){
-      console.log(response.data);
       setOrden({
         cliente: response.data.razonSocial,
         producto: response.data.producto,
@@ -104,6 +107,10 @@ export const RevisionRev = () => {
     
   }
 
+  const asignarNuevaRevision = () => {
+    const idPuntoControl = (state && state.idRevisor) ? state.idRevisor : parseInt(localStorage.getItem('idRevisor'))
+  }
+
   const handleClickAbandonar = () => {
     setOpenAbandonar(true);
   }
@@ -120,6 +127,23 @@ export const RevisionRev = () => {
     setOpenAbandonar(false);
   }
 
+  const handleCloseConductorAprobado = () => {
+    setConductorAprobado(false);
+  }
+
+  const handleConfirmAprobar = () => {
+    aprobarRevision(idTurnoRevision)
+    .then(function(response){
+      console.log(response);
+      handleCloseAprobar();
+      setConductorAprobado(true);
+    })
+    .catch(function(err){
+      console.log(err);
+    })
+
+  }
+
   const handleCheckboxChange = (id) => {
     setIncidencias((prevState) =>
       prevState.map((inc) =>
@@ -128,11 +152,21 @@ export const RevisionRev = () => {
     );
   };
 
+  const handleVolverInicio = () => {
+    navigate(ROUTES.INICIO_REVISOR, {
+      state: {
+        idRevisor: localStorage.getItem('idRevisor'),
+        nombres: localStorage.getItem('nombres')
+      }
+    });
+  }
+  
+
   return (
     <div className='margin-pantalla'>
       <Grid item container className='grid-punto-control'>
         <Typography className='text-punto-control'>
-          {puntoControl}
+          {codigoPuntoControl}
         </Typography>
         <Typography className='text-titulo-orden'>
           Revisión de unidades físicas
@@ -244,7 +278,7 @@ export const RevisionRev = () => {
             <Button
               className='one-button'
               variant='contained'
-              // onClick={handleCloseAprobar}
+              onClick={handleConfirmAprobar}
             >
               APROBAR
             </Button>
@@ -322,6 +356,35 @@ export const RevisionRev = () => {
               // onClick={handleCloseAprobar}
             >
               OK
+            </Button>
+          </Grid>
+        </Box>
+      </Modal>
+      <Modal
+        open={conductorAprobado}
+        onClose={handleCloseConductorAprobado}
+      >
+        <Box sx={{ ...style}}>
+          <Grid className='grid-aprobado'>
+            <Typography className='modal-aprobado'>
+            Conductor aprobado
+            </Typography>
+          </Grid>
+          <Grid className='grid-aprobado-buttons'>
+            <Button
+              className='button-aprobado'
+              variant='outlined'
+              onClick={handleVolverInicio}
+              style={{ marginBottom: "15px"}}
+            >
+              VOLVER A INICIO
+            </Button>
+            <Button
+              className='button-aprobado'
+              variant='contained'
+              // onClick={handleSiguiente}
+            >
+              SIGUIENTE
             </Button>
           </Grid>
         </Box>

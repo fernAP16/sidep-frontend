@@ -15,9 +15,10 @@ const TurnoEspera = () => {
   const [estado, setEstado] = React.useState('');
 
   React.useEffect(() => { 
+    const x = 10.5;
+    const y = 25;
     const idDespacho = state.idDespacho;
-    const idPlanta = state.idPlanta;
-    getTurnoEspera(idDespacho, idPlanta)
+    getTurnoEspera(idDespacho, x, y)
     .then(function(response){
       if(response.data.idTurnoRevision !== 0){
         const turnoAsignado = response.data.turnoAsignado

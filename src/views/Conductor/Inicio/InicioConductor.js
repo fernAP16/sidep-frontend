@@ -114,8 +114,10 @@ const InicioConductor = () => {
   }
 
   const handleCloseRegistered = () => {
+    const x = 10.5;
+    const y = 25;
     setOpenRegistered(false);
-    registrarTurnoEspera(idDespachoRegistrado, idPlanta)
+    registrarTurnoEspera(idDespachoRegistrado, x, y)
     .then(function(response) {
       navigate(ROUTES.DESPACHO_INICIO, {
         state: {

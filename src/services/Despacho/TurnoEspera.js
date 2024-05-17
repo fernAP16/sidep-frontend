@@ -8,10 +8,11 @@ export const getEstadoDespacho = (idConductor) => {
   )
 }
 
-export const registrarTurnoEspera = (idDesp, idPlan) => {
+export const registrarTurnoEspera = (idDesp, x, y) => {
   const obj = {
     idDespacho: idDesp,
-    idPlanta: idPlan,
+    x: x,
+    y: y
   }
   
   return axios.post(
@@ -20,10 +21,11 @@ export const registrarTurnoEspera = (idDesp, idPlan) => {
   )
 }
 
-export const getTurnoEspera = (idDesp, idPlan) => {
+export const getTurnoEspera = (idDesp, x, y) => {
   const obj = {
     idDespacho: idDesp,
-    idPlanta: idPlan,
+    x: x,
+    y: y
   }
   
   return axios.post(
