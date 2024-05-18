@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { Box, Button, Card, Checkbox, FormControlLabel, FormGroup, Grid, Modal, Typography } from '@mui/material';
 import './RevisionRev.css';
 import * as ROUTES from '../../../routes/routes';
-import { aprobarRevision, getDespachoByIdTurnoRevision, getIncidencias, registrarIncidencias } from '../../../services/Despacho/Revision';
+import { aprobarRevision, asignarPuntoControlYRevisor, getDespachoByIdTurnoRevision, getIncidencias, registrarIncidencias, registrarSalidaRevisor } from '../../../services/Despacho/Revision';
 
 export const RevisionRev = () => {
 
@@ -22,6 +22,7 @@ export const RevisionRev = () => {
   const [incidencias, setIncidencias] = React.useState([]);
   const [accionRealizada, setAccionRealizada] = React.useState(false);
   const [labelAccion, setLabelAccion] = React.useState('');
+  const [hayRevision, setHayRevision] = React.useState(false);
 
   const style = {
     position: 'absolute',
@@ -56,29 +57,57 @@ export const RevisionRev = () => {
     setCodigoPuntoControl(codigoPuntoControl);
     setIdPuntoControl(idPuntoControl);
     setIdTurnoRevision(idTurnoRevision);
-    getDespachoByIdTurnoRevision(idTurnoRevision)
-    .then(function(response){
+    console.log(idTurnoRevision)
+    if(!idTurnoRevision){
       setOrden({
-        cliente: response.data.razonSocial,
-        producto: response.data.producto,
-        cantidad: response.data.cantidad,
-        tracto: response.data.placaTracto,
-        carreta: response.data.placaCarreta
+        cliente: '',
+        producto: '',
+        cantidad: '',
+        tracto: '',
+        carreta: '',
       })
-    })
-    .catch(function(err){
-      console.log(err);
-      setOrden({
-        cliente: 'Ferreteria San Marcos',
-        producto: 'Cemento LORETO',
-        cantidad: '700 bolsas de 52.5 kg',
-        tracto: 'CFA-485',
-        carreta: 'FD-5189'
+      setHayRevision(false);
+      return;
+    } else {
+      getDespachoByIdTurnoRevision(idTurnoRevision)
+      .then(function(response){
+        if(response.data.razonSocial !== null){
+          setOrden({
+            cliente: response.data.razonSocial,
+            producto: response.data.producto,
+            cantidad: response.data.cantidad,
+            tracto: response.data.placaTracto,
+            carreta: response.data.placaCarreta
+          })
+          setHayRevision(true);
+        } else {
+          setOrden({
+            cliente: '',
+            producto: '',
+            cantidad: '',
+            tracto: '',
+            carreta: ''
+          })
+          setHayRevision(false);
+        }
+        
       })
-    })
-    .finally(() => {
-      
-    })
+      .catch(function(err){
+        console.log(err);
+        setOrden({
+          cliente: 'Ferreteria San Marcos',
+          producto: 'Cemento LORETO',
+          cantidad: '700 bolsas de 52.5 kg',
+          tracto: 'CFA-485',
+          carreta: 'FD-5189'
+        })
+        setHayRevision(false);
+      })
+      .finally(() => {
+        
+      })
+    }
+    
   }, []);
 
   const handleClickAprobar = () => {
@@ -108,10 +137,6 @@ export const RevisionRev = () => {
     
   }
 
-  const asignarNuevaRevision = () => {
-    const idPuntoControl = (state && state.idRevisor) ? state.idRevisor : parseInt(localStorage.getItem('idRevisor'))
-  }
-
   const handleClickAbandonar = () => {
     setOpenAbandonar(true);
   }
@@ -128,7 +153,7 @@ export const RevisionRev = () => {
     setOpenAbandonar(false);
   }
 
-  const handleCloseConductorAprobado = () => {
+  const handleAccionRealizada = () => {
     setAccionRealizada(false);
   }
 
@@ -169,12 +194,80 @@ export const RevisionRev = () => {
   };
 
   const handleVolverInicio = () => {
-    navigate(ROUTES.INICIO_REVISOR, {
-      state: {
-        idRevisor: localStorage.getItem('idRevisor'),
-        nombres: localStorage.getItem('nombres')
+    console.log(idTurnoRevision);
+    registrarSalidaRevisor(idTurnoRevision)
+    .then(function(response){
+      console.log(response.data);
+      navigate(ROUTES.INICIO_REVISOR, {
+        state: {
+          idRevisor: localStorage.getItem('idRevisor'),
+          nombres: localStorage.getItem('nombres')
+        }
+      });
+    })
+    .catch(function(err){
+      console.log(err);
+    })
+  }
+
+  const handleSiguienteRevision = () => {
+    handleAccionRealizada();
+    const x = 10.5;
+    const y = 25;
+    asignarPuntoControlYRevisor((state && state.idRevisor) ? state.idRevisor : parseInt(localStorage.getItem('idRevisor')), idPuntoControl, x, y)
+    .then(function(response){
+      console.log(response.data);
+      localStorage.setItem('idTurnoRevision', response.data.idTurnoRevision);
+      const idNuevoTurnoRevision = response.data.idTurnoRevision;
+      setIdTurnoRevision(idNuevoTurnoRevision);
+      if(idNuevoTurnoRevision===null){
+          setOrden({
+            cliente: '',
+            producto: '',
+            cantidad: '',
+            tracto: '',
+            carreta: '',
+        })
+        setHayRevision(false);
+        return;
       }
-    });
+      getDespachoByIdTurnoRevision(idNuevoTurnoRevision)
+      .then(function(response){
+        if(response.data.razonSocial !== null){
+          setHayRevision(true);
+          setOrden({
+            cliente: response.data.razonSocial,
+            producto: response.data.producto,
+            cantidad: response.data.cantidad,
+            tracto: response.data.placaTracto,
+            carreta: response.data.placaCarreta
+          })
+        } else {
+          setHayRevision(false);
+          setOrden({
+            cliente: '',
+            producto: '',
+            cantidad: '',
+            tracto: '',
+            carreta: '',
+          })
+        }
+        handleAccionRealizada();
+      })
+      .catch(function(err){
+        console.log(err);
+        setOrden({
+          cliente: 'Ferreteria San Marcos',
+          producto: 'Cemento LORETO',
+          cantidad: '700 bolsas de 52.5 kg',
+          tracto: 'CFA-485',
+          carreta: 'FD-5189'
+        })
+      })
+    })
+    .catch(function(err){
+      console.log(err);
+    })
   }
   
 
@@ -189,90 +282,94 @@ export const RevisionRev = () => {
         </Typography>
       </Grid>
       <Typography className='text-subtitulo-orden'>
-        Datos de la orden del cliente:
+        {hayRevision ? <>Datos de la orden del cliente:</> : <>Esperando al siguiente conductor...</>}
       </Typography>
-      <Card className='card-orden'>
-        <Grid style={{ marginBottom: "10px" }} className='grid-orden'>
-          <Typography className='card-titulo'>
-            Cliente:
-          </Typography>
-          <Typography className='card-datos'>
-            {orden.cliente}
-          </Typography>
-        </Grid>
-        <Grid style={{ marginBottom: "10px" }} className='grid-orden'>
-          <Typography className='card-titulo'>
-            Producto:
-          </Typography>
-          <Typography className='card-datos'>
-            {orden.producto}
-          </Typography>
-        </Grid>
-        <Grid className='grid-orden'>
-          <Typography className='card-titulo'>
-            Cantidad:
-          </Typography>
-          <Typography className='card-datos'>
-            {orden.cantidad}
-          </Typography>
-        </Grid>
-      </Card>
-      <Typography className='text-subtitulo-orden'>
-        Datos del vehículo:
-      </Typography>
-      <Card className='card-vehiculo'>
-        <Grid className='card-vehiculo-titulos'>
-          <Grid className='card-vehiculo-header'>
+      {hayRevision && 
+      <>
+        <Card className='card-orden'>
+          <Grid style={{ marginBottom: "10px" }} className='grid-orden'>
+            <Typography className='card-titulo'>
+              Cliente:
+            </Typography>
+            <Typography className='card-datos'>
+              {orden.cliente}
+            </Typography>
+          </Grid>
+          <Grid style={{ marginBottom: "10px" }} className='grid-orden'>
+            <Typography className='card-titulo'>
+              Producto:
+            </Typography>
+            <Typography className='card-datos'>
+              {orden.producto}
+            </Typography>
+          </Grid>
+          <Grid className='grid-orden'>
+            <Typography className='card-titulo'>
+              Cantidad:
+            </Typography>
+            <Typography className='card-datos'>
+              {orden.cantidad}
+            </Typography>
+          </Grid>
+        </Card>
+        <Typography className='text-subtitulo-orden'>
+          Datos del vehículo:
+        </Typography>
+        <Card className='card-vehiculo'>
+          <Grid className='card-vehiculo-titulos'>
+            <Grid className='card-vehiculo-header'>
+              <Typography>
+                Tracto
+              </Typography>
+            </Grid>
+            <Grid className='card-vehiculo-header'>
             <Typography>
-              Tracto
-            </Typography>
+                Carreta
+              </Typography>
+            </Grid>
           </Grid>
-          <Grid className='card-vehiculo-header'>
-          <Typography>
-              Carreta
-            </Typography>
+          <Grid className='card-vehiculo-datos'>
+            <Grid className='card-vehiculo-dato'>
+              <Typography>
+                {orden.tracto}
+              </Typography>
+            </Grid>
+            <Grid className='card-vehiculo-dato'>
+              <Typography>
+                {orden.carreta}
+              </Typography>
+            </Grid>
           </Grid>
-        </Grid>
-        <Grid className='card-vehiculo-datos'>
-          <Grid className='card-vehiculo-dato'>
-            <Typography>
-              {orden.tracto}
-            </Typography>
-          </Grid>
-          <Grid className='card-vehiculo-dato'>
-            <Typography>
-              {orden.carreta}
-            </Typography>
-          </Grid>
-        </Grid>
-      </Card>
-      <Grid>
+        </Card>
         <Grid>
-          <Button 
-            variant="contained" 
-            className='button-abandonar'
-            onClick={handleClickAbandonar}
-          >
-              ABANDONAR REVISIÓN
-          </Button>
+          <Grid>
+            <Button 
+              variant="contained" 
+              className='button-abandonar'
+              onClick={handleClickAbandonar}
+            >
+                ABANDONAR REVISIÓN
+            </Button>
+          </Grid>
+          <Grid className='grid-button-resultados'>
+            <Button
+              variant="contained" 
+              className='button-accion'
+              onClick={handleClickAprobar}
+            >
+              APROBAR
+            </Button>
+            <Button
+              variant="contained" 
+              className='button-accion'
+              onClick={handleClickIncidencia}
+            >
+              HAY INCIDENCIA
+            </Button>
+          </Grid>
         </Grid>
-        <Grid className='grid-button-resultados'>
-          <Button
-            variant="contained" 
-            className='button-accion'
-            onClick={handleClickAprobar}
-          >
-            APROBAR
-          </Button>
-          <Button
-            variant="contained" 
-            className='button-accion'
-            onClick={handleClickIncidencia}
-          >
-            HAY INCIDENCIA
-          </Button>
-        </Grid>
-      </Grid>
+      </>
+      }
       <Modal
         open={openAprobar}
         onClose={handleCloseAprobar}
@@ -370,7 +467,7 @@ export const RevisionRev = () => {
             <Button
               className='one-button'
               variant='contained'
-              // onClick={handleCloseAprobar}
+              onClick={handleVolverInicio}
             >
               OK
             </Button>
@@ -379,7 +476,7 @@ export const RevisionRev = () => {
       </Modal>
       <Modal
         open={accionRealizada}
-        onClose={handleCloseConductorAprobado}
+        onClose={handleAccionRealizada}
       >
         <Box sx={{ ...style}}>
           <Grid className='grid-aprobado'>
@@ -399,7 +496,7 @@ export const RevisionRev = () => {
             <Button
               className='button-aprobado'
               variant='contained'
-              // onClick={handleSiguiente}
+              onClick={handleSiguienteRevision}
             >
               SIGUIENTE
             </Button>

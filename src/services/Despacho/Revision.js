@@ -60,3 +60,9 @@ export const obtenerDatosRevisionPorConductor = (idDespacho) => {
     API_URL.url + "turnorevision/obtenerDatos/conductor/" + idDespacho
   )
 }
+
+export const registrarSalidaRevisor = (idTurnoRevision) => {
+  return axios.post(
+    API_URL.url + "turnorevision/salidaRevisor/" + idTurnoRevision
+  )
+}
