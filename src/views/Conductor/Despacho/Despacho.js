@@ -21,12 +21,13 @@ const Despacho = () => {
     getEstadoDespacho(id)
     .then(function(response){
         let estado = response.data.idEstadoOrden;
-        if(estado === 0){ // No hay despacho
+        if(estado === 0){
             // Usted no se encuentra despachando ningún producto
             setTieneDespacho(0);
             return; 
         } else {
-            if(estado === 1) { // 1	En turno de espera
+            if(estado === 1) {
+                // 1	En turno de espera
                 navigate(ROUTES.DESPACHO_TURNO_ESPERA, {
                     state: {
                         idDespacho: response.data.idDespacho,
@@ -35,6 +36,11 @@ const Despacho = () => {
                 });
                 setPaso('Cola de espera')
             } else if(estado === 2) { // 2	En revision
+                navigate(ROUTES.DESPACHO_REVISION, {
+                    state: {
+                        idDespacho: response.data.idDespacho,
+                    }
+                });
                 setPaso('En revisión')
             } else if(estado === 3) { // 3	Fin de despacho con incidencia en revision
                 setPaso('Fin de despacho con incidencia en revisión')

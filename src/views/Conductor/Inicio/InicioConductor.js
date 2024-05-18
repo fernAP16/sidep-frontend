@@ -83,7 +83,7 @@ const InicioConductor = () => {
     })
   }
 
-  const continuarDespacho = (ord) => {
+  const despacharOContinarDespachando = (ord) => {
     let ordenReg = ordenesFull.filter((orden) => orden.idOrdenRecojo === ord.idOrden)
     if(ord.estado === 1){
       setOrdenDespachar(ordenReg[0]);
@@ -91,6 +91,7 @@ const InicioConductor = () => {
     } else if(ord.estado === 2){
       obtenerUltimoDespachoPorOden(ord.idOrden)
       .then(function(response){
+        localStorage.setItem('idDespachoActual', response.data.idDespacho);
         navigate(ROUTES.DESPACHO_INICIO, {
           state: {
             idDespacho: response.data.idDespacho,
@@ -177,7 +178,7 @@ const InicioConductor = () => {
           orden={ord}
           esInicio
           detalleAction={() => detalleOrden(ord)}
-          despacharAction={() => continuarDespacho(ord)}
+          despacharAction={() => despacharOContinarDespachando(ord)}
           estado={ord.estado}
           estaDespachando={estaDespachando}
         />

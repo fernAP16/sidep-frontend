@@ -32,3 +32,31 @@ export const aprobarRevision = (idTurnoRevision) => {
     API_URL.url + "turnorevision/aprobar/" + idTurnoRevision,
   )
 }
+
+export const registrarIncidencias = (id, arrIdIncidencias) => {
+  const obj = {
+    idIncidencias: arrIdIncidencias,
+    idTurnoRevision: id
+  }
+  return axios.post(
+    API_URL.url + "turnorevision/registrarIncidencia",
+    obj
+  )
+}
+
+export const actualizarEstadoDespachoPorTurnoRevision = (idTurnoRevision, nuevoEstado) => {
+  const obj = {
+    nuevoEstado: nuevoEstado,
+    idTurnoRevision: idTurnoRevision
+  }
+  return axios.post(
+    API_URL.url + "turnorevision/estadoDespacho",
+    obj
+  )
+}
+
+export const obtenerDatosRevisionPorConductor = (idDespacho) => {
+  return axios.post(
+    API_URL.url + "turnorevision/obtenerDatos/conductor/" + idDespacho
+  )
+}

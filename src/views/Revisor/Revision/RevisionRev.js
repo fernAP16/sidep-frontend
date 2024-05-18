@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { Box, Button, Card, Checkbox, FormControlLabel, FormGroup, Grid, Modal, Typography } from '@mui/material';
 import './RevisionRev.css';
 import * as ROUTES from '../../../routes/routes';
-import { aprobarRevision, getDespachoByIdTurnoRevision, getIncidencias } from '../../../services/Despacho/Revision';
+import { aprobarRevision, getDespachoByIdTurnoRevision, getIncidencias, registrarIncidencias } from '../../../services/Despacho/Revision';
 
 export const RevisionRev = () => {
 
@@ -20,7 +20,8 @@ export const RevisionRev = () => {
   const [openAprobar, setOpenAprobar] = React.useState(false);
   const [openIncidencia, setOpenIncidencia] = React.useState(false);
   const [incidencias, setIncidencias] = React.useState([]);
-  const [conductorAprobado, setConductorAprobado] = React.useState(false);
+  const [accionRealizada, setAccionRealizada] = React.useState(false);
+  const [labelAccion, setLabelAccion] = React.useState('');
 
   const style = {
     position: 'absolute',
@@ -128,7 +129,7 @@ export const RevisionRev = () => {
   }
 
   const handleCloseConductorAprobado = () => {
-    setConductorAprobado(false);
+    setAccionRealizada(false);
   }
 
   const handleConfirmAprobar = () => {
@@ -136,12 +137,27 @@ export const RevisionRev = () => {
     .then(function(response){
       console.log(response);
       handleCloseAprobar();
-      setConductorAprobado(true);
+      setLabelAccion('Conductor aprobado');
+      setAccionRealizada(true);
     })
     .catch(function(err){
       console.log(err);
     })
 
+  }
+
+  const handleConfirmIncidencia = () => {
+    handleCloseIncidencia();
+    const filteredIds = incidencias.filter(inc => inc.checked).map(inc => inc.id);
+    registrarIncidencias(idTurnoRevision, filteredIds)
+    .then(function(response){
+      console.log(response.data);
+      setLabelAccion('Incidencias registrada');
+      setAccionRealizada(true);
+    })
+    .catch(function(err){
+      console.log(err);
+    })
   }
 
   const handleCheckboxChange = (id) => {
@@ -325,7 +341,8 @@ export const RevisionRev = () => {
             <Button
               className='one-button'
               variant='contained'
-              // onClick={handleCloseRegistrarIncidencias}
+              onClick={handleConfirmIncidencia}
+              disabled={incidencias.filter(inc => inc.checked).length===0}
             >
               REGISTRAR
             </Button>
@@ -361,13 +378,13 @@ export const RevisionRev = () => {
         </Box>
       </Modal>
       <Modal
-        open={conductorAprobado}
+        open={accionRealizada}
         onClose={handleCloseConductorAprobado}
       >
         <Box sx={{ ...style}}>
           <Grid className='grid-aprobado'>
             <Typography className='modal-aprobado'>
-            Conductor aprobado
+            {labelAccion}
             </Typography>
           </Grid>
           <Grid className='grid-aprobado-buttons'>

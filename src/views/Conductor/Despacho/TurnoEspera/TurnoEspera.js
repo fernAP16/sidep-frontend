@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { getTurnoEspera } from '../../../../services/Despacho/TurnoEspera';
 import { Button, Card, Grid, Typography } from '@mui/material';
 import * as ROUTES from '../../../../routes/routes';
+import { actualizarEstadoDespacho } from '../../../../services/Despacho/DespachoGeneral';
 
 const TurnoEspera = () => {
 
@@ -13,11 +14,13 @@ const TurnoEspera = () => {
   const [turnoAsignado, setTurnoAsignado] = React.useState(0);
   const [turnoActual, setTurnoActual] = React.useState(0);
   const [estado, setEstado] = React.useState('');
+  const [idDespachoActual, setIdDespachoActual] = React.useState(0);
 
   React.useEffect(() => { 
     const x = 10.5;
     const y = 25;
     const idDespacho = state.idDespacho;
+    setIdDespachoActual(idDespacho);
     getTurnoEspera(idDespacho, x, y)
     .then(function(response){
       if(response.data.idTurnoRevision !== 0){
@@ -45,11 +48,19 @@ const TurnoEspera = () => {
   }, [])
 
   const handleIniciarDespacho = () => {
-    navigate(ROUTES.DESPACHO_REVISION, {
-      state: {
-          idRevision: 1
-      }
-  });
+    actualizarEstadoDespacho(idDespachoActual, 2)
+    .then(function(response){
+      console.log(response.data);
+      navigate(ROUTES.DESPACHO_REVISION, {
+        state: {
+            idRevision: 1,
+            idDespacho: idDespachoActual
+        }
+      });
+    })
+    .catch(function(err){
+      console.log(err);
+    })
   }
 
   return (
