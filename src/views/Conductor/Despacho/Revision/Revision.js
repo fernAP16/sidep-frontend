@@ -23,6 +23,7 @@ export const Revision = () => {
     const [openTerminar, setOpenTerminar] = React.useState(false);
     const [revisionAprobada, setRevisionAprobada] = React.useState(null);
     const [incidenciasCometidas, setIncidenciasCometidas] = React.useState([]);
+    const [balanzaAsignada, setBalanzaAsignada] = React.useState('');
 
     const style = {
         position: 'absolute',
@@ -80,7 +81,16 @@ export const Revision = () => {
                     setIncidenciasCometidas([]);
                 })
             } else {
-                // Generar balanza asignada
+                // Asignar balanza y mostrar modal de aprobacion
+                // asignarBalanza(idDespachoActual)
+                // .then(function(response){
+
+                // })
+                // .catch(function(err){
+
+                // })
+                setBalanzaAsignada('B1');
+                setOpenAprobado(true);
             }
         }
     }
@@ -97,12 +107,12 @@ export const Revision = () => {
         actualizarEstadoDespacho(idDespachoActual, 4)
         .then(function(response){
           console.log(response.data);
-        //   navigate(ROUTES.DESPACHO_REVISION, {
-        //     state: {
-        //         idRevision: 1,
-        //         idDespacho: idDespachoActual
-        //     }
-        //   });
+          navigate(ROUTES.DESPACHO_PESAJE_VACIO, {
+            state: {
+                idRevision: 1,
+                idDespacho: idDespachoActual
+            }
+          });
         })
         .catch(function(err){
           console.log(err);
@@ -184,7 +194,7 @@ export const Revision = () => {
                 </Grid>
                 <Grid className='grid-incidencia'>
                     <Typography className='label-incidencia'>
-                        Por favor, dirigirse a la zona de balanza asignada
+                        {'Balanza ' + balanzaAsignada}
                     </Typography>
                 </Grid>
                 <Grid className='modal-aprobar-buttons'>

@@ -15,6 +15,7 @@ import { DetalleOrden } from '../../views/Conductor/Inicio/DetalleOrden.js';
 import Despacho from '../../views/Conductor/Despacho/Despacho.js';
 import { Revision } from '../../views/Conductor/Despacho/Revision/Revision.js';
 import { RevisionRev } from '../../views/Revisor/Revision/RevisionRev.js';
+import { PesajeVacio } from '../../views/Conductor/Despacho/PesajeVacio/PesajeVacio.js';
 
 export const AppRouter = (props) => {
 
@@ -48,6 +49,7 @@ export const AppRouter = (props) => {
             <Route path={ROUTES.DESPACHO_INICIO} element={/*loading === true ? <></> : */<Layout><Despacho/></Layout>}/>
             <Route path={ROUTES.DESPACHO_TURNO_ESPERA} element={/*loading === true ? <></> : */<Layout><TurnoEspera/></Layout>}/>
             <Route path={ROUTES.DESPACHO_REVISION} element={/*loading === true ? <></> : */<Layout><Revision/></Layout>}/>
+            <Route path={ROUTES.DESPACHO_PESAJE_VACIO} element={/*loading === true ? <></> : */<Layout><PesajeVacio/></Layout>}/>
 
             {/* General revisor */}
             <Route path={ROUTES.LOGIN_REVISOR} element = {<LoginRevisor/>}/>
