@@ -1,11 +1,12 @@
 import React from 'react';
-import { Button, Card, Grid, Typography } from '@mui/material';
+import { Box, Button, Card, Grid, Modal, Typography } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
-
+import { ProgressBar } from '../../../../components/ProgressBar/ProgressBar';
+import { getIncidenciasCometidas, obtenerDatosRevisionPorConductor } from '../../../../services/Despacho/Revision';
+import { actualizarEstadoDespacho, actualizarOrdenPorDespacho } from '../../../../services/Despacho/DespachoGeneral';
+import * as ROUTES from '../../../../routes/routes';
 import '../../../../constants/commonStyle.css';
 import './Revision.css'
-import { ProgressBar } from '../../../../components/ProgressBar/ProgressBar';
-import { obtenerDatosRevisionPorConductor } from '../../../../services/Despacho/Revision';
 
 export const Revision = () => {
 
@@ -17,13 +18,33 @@ export const Revision = () => {
     const [estado, setEstado] = React.useState('-');
     const [horaInicio, setHoraInicio] = React.useState('-');
     const [horaFin, setHoraFin] = React.useState('-');
-    const [tieneResultados, setTieneResultados] = React.useState(true);
+    const [tieneResultados, setTieneResultados] = React.useState(false);
+    const [openAprobado, setOpenAprobado] = React.useState(false);
+    const [openTerminar, setOpenTerminar] = React.useState(false);
+    const [revisionAprobada, setRevisionAprobada] = React.useState(null);
+    const [incidenciasCometidas, setIncidenciasCometidas] = React.useState([]);
+
+    const style = {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 280,
+        bgcolor: 'background.paper',
+        boxShadow: 24,
+        borderRadius: "5px",
+        pt: 2,
+        px: 2,
+        pb: 3,
+    };
+
 
     React.useEffect(() => {
         const idDespacho = state.idDespacho;
         setIdDespachoActual(idDespacho);
         obtenerDatosRevisionPorConductor(idDespacho)
         .then(function(response){
+            console.log(response.data);
             setIdTurnoRevision(response.data.idTurnoRevision);
             setCodigoPuntoControl(response.data.codigoPuntoControl);
             if(response.data.esAprobado === null) setEstado('En revisión');
@@ -34,9 +55,10 @@ export const Revision = () => {
             if(response.data.horaFin === null)setHoraFin('-');
             else {
                 const fechaFin = new Date(response.data.horaFin);
-                fechaFin.setTime(fechaFin.getTime() - (5 * 60 * 60 * 1000));
                 const horaFin = fechaFin.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
                 setHoraFin(horaFin);
+                setTieneResultados(true)
+                setRevisionAprobada(response.data.esAprobado);
             }
         })
         .catch(function(err){
@@ -45,7 +67,68 @@ export const Revision = () => {
     }, []);
 
     const handleVerResultados = () => {
-        
+        if(revisionAprobada !== null){
+            if(revisionAprobada === 0){
+                // Traer incidencias
+                getIncidenciasCometidas(idTurnoRevision)
+                .then(function(response){
+                    console.log(response);
+                    setIncidenciasCometidas(response.data);
+                    setOpenTerminar(true);
+                })
+                .catch(function(err){
+                    setIncidenciasCometidas([]);
+                })
+            } else {
+                // Generar balanza asignada
+            }
+        }
+    }
+
+    const handleCloseAprobado = () => {
+        setOpenAprobado(false);
+    }
+
+    const handleCloseTerminar = () => {
+        setOpenTerminar(false);
+    }
+
+    const handleIrAPesaje = () => {
+        actualizarEstadoDespacho(idDespachoActual, 4)
+        .then(function(response){
+          console.log(response.data);
+        //   navigate(ROUTES.DESPACHO_REVISION, {
+        //     state: {
+        //         idRevision: 1,
+        //         idDespacho: idDespachoActual
+        //     }
+        //   });
+        })
+        .catch(function(err){
+          console.log(err);
+        })
+    }
+
+    const handleTerminarDespacho = () => {
+        actualizarEstadoDespacho(idDespachoActual, 3)
+        .then(function(response){
+          console.log(response.data);
+          actualizarOrdenPorDespacho(idDespachoActual, 1)
+          .then(function(response){
+            navigate(ROUTES.INICIO_CONDUCTOR, {
+                state: {
+                    idConductor: localStorage.getItem('idConductor'),
+                    nombres: localStorage.getItem('nombres')
+                }
+              });
+          })
+          .catch(function(err){
+            console.log(err);
+          })
+        })
+        .catch(function(err){
+          console.log(err);
+        })
     }
 
     return (
@@ -77,13 +160,80 @@ export const Revision = () => {
                     <Button 
                         variant="contained" 
                         className='button-revision'
-                        disabled={tieneResultados}
+                        disabled={!tieneResultados}
                         onClick={() => handleVerResultados()}
                     >
                         Ver resultados
                 </Button>
                 </Grid>
             </div>
+            <Modal
+                open={openAprobado}
+                onClose={handleCloseAprobado}
+            >
+                <Box sx={{ ...style}}>
+                <Grid className='grid-pregunta'>
+                    <Typography className='modal-pregunta'>
+                        Revisión aprobada
+                    </Typography>
+                </Grid>
+                <Grid className='grid-incidencia'>
+                    <Typography className='label-incidencia'>
+                        Por favor, dirigirse a la zona de balanza asignada
+                    </Typography>
+                </Grid>
+                <Grid className='grid-incidencia'>
+                    <Typography className='label-incidencia'>
+                        Por favor, dirigirse a la zona de balanza asignada
+                    </Typography>
+                </Grid>
+                <Grid className='modal-aprobar-buttons'>
+                    <Button
+                    className='one-button'
+                    variant='outlined'
+                    onClick={handleIrAPesaje}
+                    >
+                    IR A PESAJE
+                    </Button>
+                </Grid>
+                </Box>
+            </Modal>
+            <Modal
+                open={openTerminar}
+                onClose={handleCloseTerminar}
+            >
+                <Box sx={{ ...style}}>
+                <Grid className='grid-titulo-noaprobada'>
+                    <Typography className='modal-noaprobada'>
+                        Revisión no aprobada
+                    </Typography>
+                </Grid>
+                <Grid className='grid-subtitulo-noaprobada'>
+                    <Typography className='label-subtitulo-noaprobada'>
+                        Regresar al despacho cuando resuelva las incidencias:
+                    </Typography>
+                </Grid>
+                <Grid className='grid-incidencias-cometidas'>
+                    {incidenciasCometidas.map((inc, index) => {
+                        return (
+                        <Typography className='label-incidencia-cometidas'>
+                            {index+1 + ') ' + inc}
+                        </Typography>
+                    )
+                    })}
+                    
+                </Grid>
+                <Grid className='modal-aprobar-buttons'>
+                    <Button
+                    className='one-button'
+                    variant='contained'
+                    onClick={handleTerminarDespacho}
+                    >
+                    TERMINAR DESPACHO
+                    </Button>
+                </Grid>
+                </Box>
+            </Modal>
         </>
     )
 }

@@ -66,3 +66,9 @@ export const registrarSalidaRevisor = (idTurnoRevision) => {
     API_URL.url + "turnorevision/salidaRevisor/" + idTurnoRevision
   )
 }
+
+export const getIncidenciasCometidas = (idTurnoRevision) => {
+  return axios.post(
+    API_URL.url + "turnorevision/incidenciasCometidas/" + idTurnoRevision
+  )
+}

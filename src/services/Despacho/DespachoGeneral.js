@@ -12,3 +12,14 @@ export const actualizarEstadoDespacho = (idDespacho, idNuevoEstado) => {
         obj
     )
 }
+
+export const actualizarOrdenPorDespacho = (idDespachoActual, idNuevoEstado) => {
+    const obj = {
+        idDespacho: idDespachoActual,
+        idNuevoEstado: idNuevoEstado
+    }
+    return axios.post(
+        API_URL.url + "ordenRecojo/nuevoEstado",
+        obj
+    )
+}

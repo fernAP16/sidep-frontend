@@ -53,6 +53,7 @@ export const RevisionRev = () => {
     const codigoPuntoControl = ((state && state.codigoPuntoControl) ? state.codigoPuntoControl : 'C' + parseInt(localStorage.getItem('idPuntoControl')));
     const idTurnoRevision = ((state && state.idTurnoRevision) ? state.idTurnoRevision : parseInt(localStorage.getItem('idTurnoRevision')));
     const idPlanta = ((state && state.idPlanta) ? state.idPlanta : parseInt(localStorage.getItem('idPlanta')));
+    console.log(idTurnoRevision);
     setIdRevisor(idRevisor);
     setCodigoPuntoControl(codigoPuntoControl);
     setIdPuntoControl(idPuntoControl);

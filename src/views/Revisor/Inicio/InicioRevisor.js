@@ -36,6 +36,7 @@ export const InicioRevisor = () => {
       response.data.forEach((element) => {
         const idRevisor = ((state && state.idRevisor) ? state.idRevisor : parseInt(localStorage.getItem('idRevisor')));
         if(element.idRevisorAsignado === idRevisor){
+          console.log(element);
           navigate(ROUTES.REVISION_REVISOR, {
             state: {
               idRevisor: (state && state.idRevisor) ? state.idRevisor : parseInt(localStorage.getItem('idRevisor')),

@@ -64,3 +64,38 @@
 .css-vkah-MuiButtonBase-root-MuiButton-root:hover.button-revision{
     background-color: #D32F2F;
 }
+
+.grid-titulo-noaprobada{
+    display: flex;
+    position: relative;
+    justify-content: center;
+    width: 100%;
+}
+
+.modal-noaprobada{
+    display: flex;
+    position: relative;
+    justify-content: center;
+    font-size: 20px;
+    width: 100%;
+}
+
+.grid-subtitulo-noaprobada{
+    margin-top: 20px;
+}
+
+.label-subtitulo-noaprobada{
+    font-size: 18px;
+    font-weight: normal;
+}
+
+.grid-incidencias-cometidas{
+    margin: 20px 0px 20px 20px;
+    color: #D32F2F;
+}
+
+.label-incidencia-cometidas{
+    margin-bottom: 10px;
+    font-size: 16px;
+    font-weight: normal;
+}

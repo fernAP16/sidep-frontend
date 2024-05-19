@@ -20,6 +20,7 @@ const Despacho = () => {
     const id = (state && state.idConductor ? state.idConductor : localStorage.getItem('idConductor'));
     getEstadoDespacho(id)
     .then(function(response){
+        console.log(response.data)
         let estado = response.data.idEstadoOrden;
         if(estado === 0){
             // Usted no se encuentra despachando ningún producto
