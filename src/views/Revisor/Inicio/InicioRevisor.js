@@ -31,12 +31,10 @@ export const InicioRevisor = () => {
     setNombres(nomb[0].charAt(0) + nomb[0].slice(1).toLowerCase() + " " + nomb[1].charAt(0) + nomb[1].slice(1).toLowerCase());
     getPuntosControlPorPlanta(x, y)
     .then(function(response){
-      console.log(response);
       let arrPuntosControl = [];
       response.data.forEach((element) => {
         const idRevisor = ((state && state.idRevisor) ? state.idRevisor : parseInt(localStorage.getItem('idRevisor')));
         if(element.idRevisorAsignado === idRevisor){
-          console.log(element);
           navigate(ROUTES.REVISION_REVISOR, {
             state: {
               idRevisor: (state && state.idRevisor) ? state.idRevisor : parseInt(localStorage.getItem('idRevisor')),
@@ -88,7 +86,6 @@ export const InicioRevisor = () => {
     if(!selectedIdPuntoControl) return;
     asignarPuntoControlYRevisor((state && state.idRevisor) ? state.idRevisor : parseInt(localStorage.getItem('idRevisor')), selectedIdPuntoControl, x, y)
     .then(function(response){
-      console.log(response.data);
       localStorage.setItem('idRevisor', idRevisor);
       localStorage.setItem('idPuntoControl', selectedIdPuntoControl);
       localStorage.setItem('idTurnoRevision', response.data.idTurnoRevision);

@@ -28,7 +28,7 @@ export const asignarPuntoControlYRevisor = (idRevisor, idPuntoControl, x, y) => 
 }
 
 export const aprobarRevision = (idTurnoRevision) => {
-  return axios.post(
+  return axios.get(
     API_URL.url + "turnorevision/aprobar/" + idTurnoRevision,
   )
 }

@@ -53,12 +53,10 @@ export const RevisionRev = () => {
     const codigoPuntoControl = ((state && state.codigoPuntoControl) ? state.codigoPuntoControl : 'C' + parseInt(localStorage.getItem('idPuntoControl')));
     const idTurnoRevision = ((state && state.idTurnoRevision) ? state.idTurnoRevision : parseInt(localStorage.getItem('idTurnoRevision')));
     const idPlanta = ((state && state.idPlanta) ? state.idPlanta : parseInt(localStorage.getItem('idPlanta')));
-    console.log(idTurnoRevision);
     setIdRevisor(idRevisor);
     setCodigoPuntoControl(codigoPuntoControl);
     setIdPuntoControl(idPuntoControl);
     setIdTurnoRevision(idTurnoRevision);
-    console.log(idTurnoRevision)
     if(!idTurnoRevision){
       setOrden({
         cliente: '',
@@ -194,7 +192,7 @@ export const RevisionRev = () => {
     );
   };
 
-  const handleVolverInicio = () => {
+  const handleAbandonarInicio = () => {
     console.log(idTurnoRevision);
     registrarSalidaRevisor(idTurnoRevision)
     .then(function(response){
@@ -209,6 +207,15 @@ export const RevisionRev = () => {
     .catch(function(err){
       console.log(err);
     })
+  }
+
+  const handleVolverInicio = () => {
+    navigate(ROUTES.INICIO_REVISOR, {
+      state: {
+        idRevisor: localStorage.getItem('idRevisor'),
+        nombres: localStorage.getItem('nombres')
+      }
+    });
   }
 
   const handleSiguienteRevision = () => {
@@ -468,7 +475,7 @@ export const RevisionRev = () => {
             <Button
               className='one-button'
               variant='contained'
-              onClick={handleVolverInicio}
+              onClick={handleAbandonarInicio}
             >
               OK
             </Button>

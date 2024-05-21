@@ -99,3 +99,29 @@
     font-size: 16px;
     font-weight: normal;
 }
+
+.grid-balanza-asignada{
+    display: flex;
+    position: relative;
+    justify-content: center;
+    margin: 20px 0px 20px 0px;
+    color: #D32F2F;
+
+}
+
+.label-balanza-asignada{
+    margin-bottom: 10px;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.grid-button-pesaje{
+    display: flex;
+    position: relative;
+    justify-content: center;
+}
+
+.button-ir-pesaje{
+    font-size: 20px;
+    font-weight: normal;
+}

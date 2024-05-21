@@ -15,11 +15,13 @@ const TurnoEspera = () => {
   const [turnoActual, setTurnoActual] = React.useState(0);
   const [estado, setEstado] = React.useState('');
   const [idDespachoActual, setIdDespachoActual] = React.useState(0);
+  const [idPlantaSelected, setIdPlantaSelected] = React.useState(0);
 
   React.useEffect(() => { 
     const x = 10.5;
     const y = 25;
     const idDespacho = state.idDespacho;
+    setIdPlantaSelected(state.idPlanta);
     setIdDespachoActual(idDespacho);
     getTurnoEspera(idDespacho, x, y)
     .then(function(response){
@@ -33,28 +35,24 @@ const TurnoEspera = () => {
         } else {
           setEstado("En espera");
         }
-      } else { // ERROR
-
+      } else { // ERROR        
+        console.log(response.data);
       }
     })
     .catch(function(err){
-
-    })
-    .finally(() => {
-
+      console.log(err);
     })
     
-
   }, [])
 
   const handleIniciarDespacho = () => {
     actualizarEstadoDespacho(idDespachoActual, 2)
     .then(function(response){
-      console.log(response.data);
       navigate(ROUTES.DESPACHO_REVISION, {
         state: {
             idRevision: 1,
-            idDespacho: idDespachoActual
+            idDespacho: idDespachoActual,
+            idPlanta: idPlantaSelected
         }
       });
     })

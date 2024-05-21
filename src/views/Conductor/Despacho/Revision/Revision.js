@@ -7,10 +7,11 @@ import { actualizarEstadoDespacho, actualizarOrdenPorDespacho } from '../../../.
 import * as ROUTES from '../../../../routes/routes';
 import '../../../../constants/commonStyle.css';
 import './Revision.css'
+import { registrarColaBalanzaVacio } from '../../../../services/Despacho/PesajeVacio';
 
 export const Revision = () => {
 
-    let { state } = useLocation(); // idDespacho, idPlanta
+    let { state } = useLocation();
     let navigate = useNavigate();
     const [idDespachoActual, setIdDespachoActual] = React.useState(0);
     const [idTurnoRevision, setIdTurnoRevision] = React.useState(0);
@@ -24,6 +25,8 @@ export const Revision = () => {
     const [revisionAprobada, setRevisionAprobada] = React.useState(null);
     const [incidenciasCometidas, setIncidenciasCometidas] = React.useState([]);
     const [balanzaAsignada, setBalanzaAsignada] = React.useState('');
+    const [idPlantaSelected, setIdPlantaSelected] = React.useState(0);
+    const [turnoAsignadoPesajeVacio, setTurnoAsignadoPesajeVacio] = React.useState(0);
 
     const style = {
         position: 'absolute',
@@ -42,6 +45,7 @@ export const Revision = () => {
 
     React.useEffect(() => {
         const idDespacho = state.idDespacho;
+        setIdPlantaSelected(state.idPlanta);
         setIdDespachoActual(idDespacho);
         obtenerDatosRevisionPorConductor(idDespacho)
         .then(function(response){
@@ -82,15 +86,20 @@ export const Revision = () => {
                 })
             } else {
                 // Asignar balanza y mostrar modal de aprobacion
-                // asignarBalanza(idDespachoActual)
-                // .then(function(response){
-
-                // })
-                // .catch(function(err){
-
-                // })
-                setBalanzaAsignada('B1');
-                setOpenAprobado(true);
+                registrarColaBalanzaVacio(idPlantaSelected, idDespachoActual, 1)
+                .then(function(response){
+                    const idPesajeVacio = response.data.idColaBalanzaNuevo; 
+                    const turnoAsignado = response.data.turnoAsignado;
+                    const balanza = response.data.balanzaAsignada;
+                    setBalanzaAsignada(balanza);
+                    setTurnoAsignadoPesajeVacio(idPesajeVacio);
+                    setOpenAprobado(true);
+                })
+                .catch(function(err){
+                    setBalanzaAsignada('B1');
+                    setOpenAprobado(true);
+                })
+                
             }
         }
     }
@@ -109,8 +118,8 @@ export const Revision = () => {
           console.log(response.data);
           navigate(ROUTES.DESPACHO_PESAJE_VACIO, {
             state: {
-                idRevision: 1,
-                idDespacho: idDespachoActual
+                idDespacho: idDespachoActual,
+                idPlanta: idPlantaSelected
             }
           });
         })
@@ -174,7 +183,7 @@ export const Revision = () => {
                         onClick={() => handleVerResultados()}
                     >
                         Ver resultados
-                </Button>
+                    </Button>
                 </Grid>
             </div>
             <Modal
@@ -182,25 +191,25 @@ export const Revision = () => {
                 onClose={handleCloseAprobado}
             >
                 <Box sx={{ ...style}}>
-                <Grid className='grid-pregunta'>
-                    <Typography className='modal-pregunta'>
+                <Grid className='grid-titulo-noaprobada'>
+                    <Typography className='modal-noaprobada'>
                         Revisión aprobada
                     </Typography>
                 </Grid>
-                <Grid className='grid-incidencia'>
-                    <Typography className='label-incidencia'>
-                        Por favor, dirigirse a la zona de balanza asignada
+                <Grid className='grid-subtitulo-noaprobada'>
+                    <Typography className='label-subtitulo-noaprobada'>
+                        Por favor, dirigirse a la zona de balanza asignada:
                     </Typography>
                 </Grid>
-                <Grid className='grid-incidencia'>
-                    <Typography className='label-incidencia'>
+                <Grid className='grid-balanza-asignada'>
+                    <Typography className='label-balanza-asignada'>
                         {'Balanza ' + balanzaAsignada}
                     </Typography>
                 </Grid>
-                <Grid className='modal-aprobar-buttons'>
+                <Grid className='grid-button-pesaje'>
                     <Button
-                    className='one-button'
-                    variant='outlined'
+                    className='button-ir-pesaje'
+                    variant='contained'
                     onClick={handleIrAPesaje}
                     >
                     IR A PESAJE
