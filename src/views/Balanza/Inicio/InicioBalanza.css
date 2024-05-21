@@ -1,0 +1,19 @@
+.grid-titulo-inicio{
+    display: flex;
+    position: relative;
+    align-items: center;
+}
+
+.codigo-titulo-inicio{
+    background-color: #D32F2F;
+    justify-content: center;
+    color: #FFF;
+    padding: 5px 5px 5px 6px;
+    margin-right: 10px;
+    border-radius: 25px;
+    font-size: 20px;
+}
+
+.label-titulo-inicio{
+    font-size: 20px;
+}

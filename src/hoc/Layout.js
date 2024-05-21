@@ -23,6 +23,8 @@ const Layout = (props) => {
     const switchBottomOption = () =>{
         switch(location.pathname){
             case ROUTES.DESPACHO_INICIO:
+            case ROUTES.DESPACHO_TURNO_ESPERA:
+            case ROUTES.DESPACHO_REVISION:
                 setValue(0);
                 break;
             case ROUTES.INICIO_CONDUCTOR:

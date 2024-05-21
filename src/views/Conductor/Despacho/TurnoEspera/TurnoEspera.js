@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { getTurnoEspera } from '../../../../services/Despacho/TurnoEspera';
 import { Button, Card, Grid, Typography } from '@mui/material';
 import * as ROUTES from '../../../../routes/routes';
+import { actualizarEstadoDespacho } from '../../../../services/Despacho/DespachoGeneral';
 
 const TurnoEspera = () => {
 
@@ -13,11 +14,16 @@ const TurnoEspera = () => {
   const [turnoAsignado, setTurnoAsignado] = React.useState(0);
   const [turnoActual, setTurnoActual] = React.useState(0);
   const [estado, setEstado] = React.useState('');
+  const [idDespachoActual, setIdDespachoActual] = React.useState(0);
+  const [idPlantaSelected, setIdPlantaSelected] = React.useState(0);
 
   React.useEffect(() => { 
+    const x = 10.5;
+    const y = 25;
     const idDespacho = state.idDespacho;
-    const idPlanta = state.idPlanta;
-    getTurnoEspera(idDespacho, idPlanta)
+    setIdPlantaSelected(state.idPlanta);
+    setIdDespachoActual(idDespacho);
+    getTurnoEspera(idDespacho, x, y)
     .then(function(response){
       if(response.data.idTurnoRevision !== 0){
         const turnoAsignado = response.data.turnoAsignado
@@ -29,26 +35,30 @@ const TurnoEspera = () => {
         } else {
           setEstado("En espera");
         }
-      } else { // ERROR
-
+      } else { // ERROR        
+        console.log(response.data);
       }
     })
     .catch(function(err){
-
-    })
-    .finally(() => {
-
+      console.log(err);
     })
     
-
   }, [])
 
   const handleIniciarDespacho = () => {
-    navigate(ROUTES.DESPACHO_REVISION, {
-      state: {
-          idRevision: 1
-      }
-  });
+    actualizarEstadoDespacho(idDespachoActual, 2)
+    .then(function(response){
+      navigate(ROUTES.DESPACHO_REVISION, {
+        state: {
+            idRevision: 1,
+            idDespacho: idDespachoActual,
+            idPlanta: idPlantaSelected
+        }
+      });
+    })
+    .catch(function(err){
+      console.log(err);
+    })
   }
 
   return (

@@ -175,3 +175,27 @@
     margin-left: 20px;
     margin-bottom: 20px;
 }
+
+.grid-aprobado{
+    display: flex;
+    position: relative;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.modal-aprobado{
+    text-align: center;
+    font-size: 24px;
+}
+
+.grid-aprobado-buttons{
+    display: flex;
+    position: relative;
+    flex-direction: column;
+}
+
+.button-aprobado{
+    height: 32px;
+    font-size: 16px;
+    font-weight: normal;
+}

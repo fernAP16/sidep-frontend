@@ -21,12 +21,13 @@ const Despacho = () => {
     getEstadoDespacho(id)
     .then(function(response){
         let estado = response.data.idEstadoOrden;
-        if(estado === 0){ // No hay despacho
+        if(estado === 0){
             // Usted no se encuentra despachando ningún producto
             setTieneDespacho(0);
             return; 
         } else {
-            if(estado === 1) { // 1	En turno de espera
+            if(estado === 1) {
+                // 1: En turno de espera
                 navigate(ROUTES.DESPACHO_TURNO_ESPERA, {
                     state: {
                         idDespacho: response.data.idDespacho,
@@ -34,25 +35,37 @@ const Despacho = () => {
                     }
                 });
                 setPaso('Cola de espera')
-            } else if(estado === 2) { // 2	En revision
+            } else if(estado === 2) { // 2:	En revision
+                navigate(ROUTES.DESPACHO_REVISION, {
+                    state: {
+                        idDespacho: response.data.idDespacho,
+                        idPlanta: response.data.idPlanta
+                    }
+                });
                 setPaso('En revisión')
-            } else if(estado === 3) { // 3	Fin de despacho con incidencia en revision
-                setPaso('Fin de despacho con incidencia en revisión')
-            } else if(estado === 4) { // 4	En peso vacio
+            } else if(estado === 3) { // 3:	Fin de despacho con incidencia en revision
+                setPaso('Fin de despacho con incidencia en revisión');
+            } else if(estado === 4) { // 4:	En peso vacio
+                navigate(ROUTES.DESPACHO_PESAJE_VACIO, {
+                    state: {
+                        idDespacho: response.data.idDespacho,
+                        idPlanta: response.data.idPlanta
+                    }
+                });
                 setPaso('Pesaje vacío')
-            } else if(estado === 5) { // 5	Fin de despacho con incidencia en peso vacio
+            } else if(estado === 5) { // 5:	Fin de despacho con incidencia en peso vacio
                 setPaso('Fin de despacho con incidencia en peso vacío')
-            } else if(estado === 6) { // 6	En cola de carga
+            } else if(estado === 6) { // 6:	En cola de carga
                 setPaso('Cola de carga')
-            } else if(estado === 7) { // 7	Cargando productos
+            } else if(estado === 7) { // 7:	Cargando productos
                 setPaso('Cargando productos')
-            } else if(estado === 8) { // 8	En peso lleno
+            } else if(estado === 8) { // 8:	En peso lleno
                 setPaso('Pesaje lleno')
-            } else if(estado === 9) { // 9	Revision de carga por incidencia en peso lleno
+            } else if(estado === 9) { // 9:	Revision de carga por incidencia en peso lleno
                 setPaso('Revisión de carga por incidencia en peso lleno')
-            } else if(estado === 10) { // 10  En salida
+            } else if(estado === 10) { // 10:  En salida
                 setPaso('En salida')
-            } else if(estado === 11) { // 11 Terminado
+            } else if(estado === 11) { // 11: Terminado
                 setPaso('Despacho terminado')
             }
         }

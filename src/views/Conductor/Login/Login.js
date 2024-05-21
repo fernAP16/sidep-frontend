@@ -43,6 +43,10 @@ export const LoginConductor = () => {
       navigate(ROUTES.LOGIN_REVISOR)
       return;
     }
+    if(dni === '44444444' && clave === '4444'){
+      navigate(ROUTES.LOGIN_BALANZA)
+      return;
+    }
     auth(dni, clave)
     .then((function(response) {
       if(response.data.status){
