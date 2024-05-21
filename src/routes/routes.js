@@ -15,3 +15,7 @@ export const DESPACHO_SALIDA = "/despacho/salida";
 export const LOGIN_REVISOR = "/revisor/login";
 export const INICIO_REVISOR = "/revisor/home";
 export const REVISION_REVISOR = "/revisor/revision";
+
+export const LOGIN_BALANZA = "/balanza/login";
+export const INICIO_BALANZA = "/balanza/home";
+export const PESAJE_BALANZA = "/balanza/revision";
