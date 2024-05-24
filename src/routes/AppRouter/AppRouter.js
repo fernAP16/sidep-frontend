@@ -20,6 +20,10 @@ import { LoginBalanza } from '../../views/Balanza/Login/Login.js';
 import { InicioBalanza } from '../../views/Balanza/Inicio/InicioBalanza.js';
 import { PesajeBalanza } from '../../views/Balanza/Pesaje/PesajeBalanza.js';
 import { LayoutBalanza } from '../../hoc/LayoutBalanza.js';
+import { ColaCarga } from '../../views/Conductor/Despacho/ColaCarga/ColaCarga.js';
+import { CargaProductos } from '../../views/Conductor/Despacho/ColaCarga/CargaProductos.js';
+import { PesajeLleno } from '../../views/Conductor/Despacho/PesajeLleno/PesajeLleno.js';
+import { Salida } from '../../views/Conductor/Despacho/Salida/Salida.js';
 
 export const AppRouter = (props) => {
 
@@ -54,6 +58,10 @@ export const AppRouter = (props) => {
             <Route path={ROUTES.DESPACHO_TURNO_ESPERA} element={/*loading === true ? <></> : */<Layout><TurnoEspera/></Layout>}/>
             <Route path={ROUTES.DESPACHO_REVISION} element={/*loading === true ? <></> : */<Layout><Revision/></Layout>}/>
             <Route path={ROUTES.DESPACHO_PESAJE_VACIO} element={/*loading === true ? <></> : */<Layout><PesajeVacio/></Layout>}/>
+            <Route path={ROUTES.DESPACHO_COLA_CARGA} element={/*loading === true ? <></> : */<Layout><ColaCarga/></Layout>}/>
+            <Route path={ROUTES.DESPACHO_CARGA_PRODUCTOS} element={/*loading === true ? <></> : */<Layout><CargaProductos/></Layout>}/>
+            <Route path={ROUTES.DESPACHO_PESAJE_LLENO} element={/*loading === true ? <></> : */<Layout><PesajeLleno/></Layout>}/>
+            <Route path={ROUTES.DESPACHO_SALIDA} element={/*loading === true ? <></> : */<Layout><Salida/></Layout>}/>
 
             {/* General revisor */}
             <Route path={ROUTES.LOGIN_REVISOR} element = {<LoginRevisor/>}/>

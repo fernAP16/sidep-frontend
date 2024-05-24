@@ -2,6 +2,7 @@
     display: flex;
     position: relative;
     align-items: center;
+    margin-bottom: 20px;
 }
 
 .codigo-titulo-inicio{
@@ -16,4 +17,20 @@
 
 .label-titulo-inicio{
     font-size: 20px;
+}
+
+.mensaje-error-grid{
+    margin-top: 20px;
+}
+
+.mensaje-error-balanza{
+    display: flex;
+    position: static;
+    justify-content: center;
+    width: 100%;
+    padding: 8px 10px;
+    border: 2px solid #EF6C00;
+    border-radius: 5px;
+    color: #EF6C00;
+    background-color: #EF6C0033;
 }

@@ -49,7 +49,6 @@ export const Revision = () => {
         setIdDespachoActual(idDespacho);
         obtenerDatosRevisionPorConductor(idDespacho)
         .then(function(response){
-            console.log(response.data);
             setIdTurnoRevision(response.data.idTurnoRevision);
             setCodigoPuntoControl(response.data.codigoPuntoControl);
             if(response.data.esAprobado === null) setEstado('En revisión');
@@ -77,7 +76,6 @@ export const Revision = () => {
                 // Traer incidencias
                 getIncidenciasCometidas(idTurnoRevision)
                 .then(function(response){
-                    console.log(response);
                     setIncidenciasCometidas(response.data);
                     setOpenTerminar(true);
                 })
@@ -115,7 +113,6 @@ export const Revision = () => {
     const handleIrAPesaje = () => {
         actualizarEstadoDespacho(idDespachoActual, 4)
         .then(function(response){
-          console.log(response.data);
           navigate(ROUTES.DESPACHO_PESAJE_VACIO, {
             state: {
                 idDespacho: idDespachoActual,
@@ -131,7 +128,6 @@ export const Revision = () => {
     const handleTerminarDespacho = () => {
         actualizarEstadoDespacho(idDespachoActual, 3)
         .then(function(response){
-          console.log(response.data);
           actualizarOrdenPorDespacho(idDespachoActual, 1)
           .then(function(response){
             navigate(ROUTES.INICIO_CONDUCTOR, {
@@ -139,7 +135,7 @@ export const Revision = () => {
                     idConductor: localStorage.getItem('idConductor'),
                     nombres: localStorage.getItem('nombres')
                 }
-              });
+            });
           })
           .catch(function(err){
             console.log(err);

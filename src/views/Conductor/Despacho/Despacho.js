@@ -42,9 +42,6 @@ const Despacho = () => {
                         idPlanta: response.data.idPlanta
                     }
                 });
-                setPaso('En revisión')
-            } else if(estado === 3) { // 3:	Fin de despacho con incidencia en revision
-                setPaso('Fin de despacho con incidencia en revisión');
             } else if(estado === 4) { // 4:	En peso vacio
                 navigate(ROUTES.DESPACHO_PESAJE_VACIO, {
                     state: {
@@ -52,19 +49,36 @@ const Despacho = () => {
                         idPlanta: response.data.idPlanta
                     }
                 });
-                setPaso('Pesaje vacío')
-            } else if(estado === 5) { // 5:	Fin de despacho con incidencia en peso vacio
-                setPaso('Fin de despacho con incidencia en peso vacío')
             } else if(estado === 6) { // 6:	En cola de carga
-                setPaso('Cola de carga')
+                navigate(ROUTES.DESPACHO_COLA_CARGA, {
+                    state: {
+                        idDespacho: response.data.idDespacho,
+                        idPlanta: response.data.idPlanta
+                    }
+                });
             } else if(estado === 7) { // 7:	Cargando productos
-                setPaso('Cargando productos')
+                navigate(ROUTES.DESPACHO_CARGA_PRODUCTOS, {
+                    state: {
+                        idDespacho: response.data.idDespacho,
+                        idPlanta: response.data.idPlanta
+                    }
+                });
             } else if(estado === 8) { // 8:	En peso lleno
-                setPaso('Pesaje lleno')
+                navigate(ROUTES.DESPACHO_PESAJE_LLENO, {
+                    state: {
+                        idDespacho: response.data.idDespacho,
+                        idPlanta: response.data.idPlanta
+                    }
+                });
             } else if(estado === 9) { // 9:	Revision de carga por incidencia en peso lleno
                 setPaso('Revisión de carga por incidencia en peso lleno')
             } else if(estado === 10) { // 10:  En salida
-                setPaso('En salida')
+                navigate(ROUTES.DESPACHO_SALIDA, {
+                    state: {
+                        idDespacho: response.data.idDespacho,
+                        idPlanta: response.data.idPlanta
+                    }
+                });
             } else if(estado === 11) { // 11: Terminado
                 setPaso('Despacho terminado')
             }

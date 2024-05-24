@@ -24,3 +24,9 @@ export const obtenerDatosPesaje = (idDespacho, idTipoPesaje) => {
         obj
     )
 }
+
+export const obtenerDatosDespachoPorPesaje = (idColaPesaje) => {
+    return axios.post(
+        API_URL.url + "colapesaje/obtenerDespachoById/" + idColaPesaje
+    ) 
+}

@@ -23,3 +23,16 @@ export const actualizarOrdenPorDespacho = (idDespachoActual, idNuevoEstado) => {
         obj
     )
 }
+
+export const agregarPesaje = (idDespacho, valorPesaje, tipoPesaje, idBalanza) => {
+    const obj = {
+        idDespacho: idDespacho,
+        tipoPesaje: tipoPesaje,
+        valorPesaje: valorPesaje,
+        idZonaBalanza: idBalanza
+    }
+    return axios.post(
+        API_URL.url + "despacho/agregarPesaje",
+        obj
+    )
+}

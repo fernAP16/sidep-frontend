@@ -3,6 +3,7 @@ import { Grid, Typography } from '@mui/material'
 import { useNavigate} from "react-router-dom";
 import LogoIcon from '../../assets/icons/logo.svg'
 import LogOutIcon from '../../assets/icons/logout.svg'
+import * as ROUTES from '../../routes/routes'
 import "./TopBar.css";
 
 const TobBar = (props) => {
@@ -14,8 +15,9 @@ const TobBar = (props) => {
     const logOut = () => {
         localStorage.clear();
         localStorage.setItem("sesion", JSON.stringify(true));
-        if(direccion === 1) navigate("/");
-        else if (direccion === 2) navigate("/revisor/login");
+        if(direccion === 1) navigate(ROUTES.LOGIN_CONDUCTOR);
+        else if (direccion === 2) navigate(ROUTES.LOGIN_REVISOR);
+        else if (direccion === 3) navigate(ROUTES.LOGIN_BALANZA);
     };
 
     return (

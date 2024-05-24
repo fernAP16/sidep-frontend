@@ -1,0 +1,82 @@
+.grid-titulo-pesaje{
+    display: flex;
+    position: relative;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.label-ingresar-inicio{
+    display: flex;
+    position: relative;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.grid-peso-vehiculo{
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.grid-datos-pesaje{
+    display: flex;
+    position: relative;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.textfield-peso-vehiculo{
+    font-size: 20px;
+    width: 220px;
+}
+
+.button-registrar-peso{
+    height: 30px;
+    width: 100%;
+    font-size: 16px;
+    font-weight: normal;
+}
+
+.modal-grid-unidad{
+    display: flex;
+    position: relative;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.modal-unidad{
+    font-size: 36px;
+    text-align: center;
+}
+
+.grid-registrado{
+    display: flex;
+    position: relative;
+    justify-content: center;
+    margin-bottom: 12px;
+}
+
+.typography-registrado{
+    font-size: 24px;
+    text-align: center;
+}
+
+.typography-peso{
+    font-size: 36px;
+    text-align: center;
+    font-weight: normal;
+}
+
+.button-volver{
+    background-color: #D32F2F;
+    height: 36px;
+    width: 70%;
+    border-radius: 5px;
+    font-size: 20px;
+    font-weight: normal;
+}
+
+.css-vkah-MuiButtonBase-root-MuiButton-root:hover.button-volver{
+    background-color: #EF6C00;
+}

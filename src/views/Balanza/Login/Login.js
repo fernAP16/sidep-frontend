@@ -26,7 +26,7 @@ export const LoginBalanza = () => {
     }
     authBalanza(dni, contra)
     .then((function(response) {
-        console.log(response);
+      console.log(response);
       localStorage.setItem('idBalanza', response.data.id);
       localStorage.setItem('codigoBalanza', response.data.nombres);
       if(response.data.status)navigate(ROUTES.INICIO_BALANZA, {

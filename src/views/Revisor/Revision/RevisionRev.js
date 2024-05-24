@@ -159,7 +159,6 @@ export const RevisionRev = () => {
   const handleConfirmAprobar = () => {
     aprobarRevision(idTurnoRevision)
     .then(function(response){
-      console.log(response);
       handleCloseAprobar();
       setLabelAccion('Conductor aprobado');
       setAccionRealizada(true);
@@ -175,7 +174,6 @@ export const RevisionRev = () => {
     const filteredIds = incidencias.filter(inc => inc.checked).map(inc => inc.id);
     registrarIncidencias(idTurnoRevision, filteredIds)
     .then(function(response){
-      console.log(response.data);
       setLabelAccion('Incidencias registrada');
       setAccionRealizada(true);
     })
@@ -193,10 +191,8 @@ export const RevisionRev = () => {
   };
 
   const handleAbandonarInicio = () => {
-    console.log(idTurnoRevision);
     registrarSalidaRevisor(idTurnoRevision)
     .then(function(response){
-      console.log(response.data);
       navigate(ROUTES.INICIO_REVISOR, {
         state: {
           idRevisor: localStorage.getItem('idRevisor'),
@@ -224,7 +220,6 @@ export const RevisionRev = () => {
     const y = 25;
     asignarPuntoControlYRevisor((state && state.idRevisor) ? state.idRevisor : parseInt(localStorage.getItem('idRevisor')), idPuntoControl, x, y)
     .then(function(response){
-      console.log(response.data);
       localStorage.setItem('idTurnoRevision', response.data.idTurnoRevision);
       const idNuevoTurnoRevision = response.data.idTurnoRevision;
       setIdTurnoRevision(idNuevoTurnoRevision);

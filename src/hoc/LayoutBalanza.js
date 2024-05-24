@@ -3,13 +3,14 @@ import * as ROUTES from "../routes/routes.js";
 import { NavBarRevisor } from '../components/NavBar/NavBarRevisor';
 import HomeIcon from '../assets/icons/inicio.svg';
 import HomeRedIcon from '../assets/icons/inicioRed.svg';
-import RevisionIcon from '../assets/icons/revision.svg';
-import RevisionRedIcon from '../assets/icons/revisionRed.svg';
+import PesajeIcon from '../assets/icons/pesaje.svg';
+import PesajeRedIcon from '../assets/icons/pesajeRed.svg';
 import TopBar from '../components/TopBar/TopBar.js';
 import NavBar from '../components/NavBar/NavBar.js';
 import { Box, CssBaseline } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Auxiliar from '../hoc/Auxiliar/Auxiliar.js';
+import { NavBarBalanza } from '../components/NavBar/NavBarBalanza.js';
 
 
 export const LayoutBalanza = (props) => {
@@ -62,18 +63,18 @@ export const LayoutBalanza = (props) => {
         <Auxiliar>
         <Box ref={ref}>
           <TopBar
-          direccion={2}
+          direccion={3}
           />
           {props.children}
           <CssBaseline />
-          <NavBarRevisor
+          <NavBarBalanza
             value={value}
             setValue={setValue}
             changeMenuOption={changeMenuOption}
             firstIcon={HomeIcon}
-            secondIcon={RevisionIcon}
+            secondIcon={PesajeIcon}
             firstIconRed={HomeRedIcon}
-            secondIconRed={RevisionRedIcon}
+            secondIconRed={PesajeRedIcon}
           />
         </Box>
       </Auxiliar>
