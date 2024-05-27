@@ -12,3 +12,37 @@ export const registrarIngresoColaBalanzaVacio = (idPlanta, idDespachoActual) => 
         obj
     )
 }
+
+export const obtenerDatosColaCarga = (idDespachoActual) => {
+    return axios.post(
+        API_URL.url + "colacarga/obtenerdatos/" + idDespachoActual
+    )
+}
+
+export const verificarCanal = (idCanalCarga, qrLeido) => {
+    const obj = {
+        idCanalCarga: idCanalCarga,
+        qrLeido: qrLeido
+    }
+    return axios.post(
+        API_URL.url + "colacarga/verificar",
+        obj
+    )
+}
+
+export const obtenerDatosCompletos = (idDespacho) => {
+    return axios.post(
+        API_URL.url + "colacarga/obtenerdatos/completos/" + idDespacho
+    )
+}
+
+export const finalizarCarga = (idDespacho, idColaCanal) => {
+    const obj = {
+        idDespacho: idDespacho,
+        idColaCanal: idColaCanal
+    }
+    return axios.post(
+        API_URL.url + "colacarga/finalizarcarga",
+        obj
+    )
+}

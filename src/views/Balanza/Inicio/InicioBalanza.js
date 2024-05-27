@@ -25,6 +25,13 @@ export const InicioBalanza = () => {
     const codigoBlz = state?.codigoBalanza || localStorage.getItem('codigoBalanza');
     setIdBalanza(idBlz);
     setCodigoBalanza(codigoBlz);
+    return () => {
+      console.log("Component unmounted");
+      const videoElement = document.querySelector('video');
+      if (videoElement) {
+        videoElement.srcObject = null;
+      }
+    };
   }, []);
 
   React.useEffect(() => {

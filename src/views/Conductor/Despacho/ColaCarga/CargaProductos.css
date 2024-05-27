@@ -1,0 +1,86 @@
+.card-tiempo{
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    background: #FFFFFF;
+    border: 0.5px solid rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    margin-bottom: 30px;
+    padding: 15px;
+    border-radius: 0px;
+}
+
+.grid-horas{
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    width: 70%;
+}
+
+.grid-hora-separado{
+    display: flex;
+    position: relative;
+    margin-bottom: 18px;
+}
+
+.grid-tiempo{
+    display: flex;
+    position: relative;
+    flex-direction: row;
+}
+
+.typography-hora{
+    font-size: 20px;
+    font-weight: bold;
+    width: 70px;
+}
+
+.typography-hora-datos{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.grid-colacarga-estado{
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.typography-colacarga-estado{
+    font-size: 20px;
+    font-weight: bold;
+    color: #D32F2F;
+}
+.button-cola{
+    height: 30px;
+    width: 100%;
+    font-size: 14px;
+    font-weight: normal;
+}
+
+.grid-colacarga-pedido{
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.grid-cronometro{
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    width: 40%;
+}
+
+.img-reloj{
+    display: flex;
+    position: relative;
+    justify-content: center;
+    margin-bottom: 5px;
+}
+
+.typography-tiempo{
+    display: flex;
+    position: relative;
+    justify-content: center;
+}

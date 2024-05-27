@@ -1,0 +1,49 @@
+.grid-scanner-colacarga{
+    display: flex;
+    position: relative;
+    width: 100%;
+    justify-content: center;
+}
+
+.scanner-colacarga{
+    width: 280px;
+    height: 280px;
+}
+
+.grid-titulo-error{
+    display: flex;
+    position: relative;
+    justify-content: center;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.typography-titulo-error{
+    font-size: 24px;
+    font-weight: bolder;
+}
+
+.grid-texto-error{
+    display: flex;
+    position: relative;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.typography-texto-error{
+    font-size: 18px;
+    text-align: center;
+    font-weight: normal;
+}
+
+.grid-button-error{
+    display: flex;
+    position: relative;
+    justify-content: center;
+}
+
+.button-error{
+    width: 100%;
+    margin-bottom: 10px;
+}
