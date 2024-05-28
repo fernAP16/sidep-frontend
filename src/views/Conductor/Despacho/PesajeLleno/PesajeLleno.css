@@ -1,0 +1,22 @@
+.titulo-modal{
+    display: flex;
+    position: relative;
+    justify-content: center;
+    font-size: 22px;
+    width: 100%;
+}
+
+.label-documentos{
+    margin-bottom: 5px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.grid-documentos{
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    margin: 20px 0px 20px 15px;
+    color: #D32F2F;
+
+}

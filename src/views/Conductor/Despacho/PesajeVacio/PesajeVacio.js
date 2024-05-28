@@ -19,7 +19,7 @@ export const PesajeVacio = () => {
   const [codigoBalanza, setCodigoBalanza] = React.useState('');
   const [idDespachoSelected, setIdDespachoSelected] = React.useState(0);
   const [idPlantaSelected, setIdPlantaSelected] = React.useState(0);
-  const [valorPesaje, setValorPesaje] = React.useState(null);
+  const [valorPesajeVacio, setValorPesajeVacio] = React.useState(null);
   const [valorVehiculo, setValorVehiculo] = React.useState(0);
   const [limiteInferior, setLimiteInferior] = React.useState(0);
   const [limiteSuperior, setLimiteSuperior] = React.useState(0);
@@ -42,7 +42,7 @@ export const PesajeVacio = () => {
     pt: 2,
     px: 2,
     pb: 3,
-};
+  };
 
   React.useEffect(() => {
     const idDespacho = state.idDespacho;
@@ -55,7 +55,7 @@ export const PesajeVacio = () => {
       const idColaPsj = response.data.idColaPesaje;
       const idBlz = response.data.idZonaBalanza;
       const codigoBlz = response.data.codigoZonaBalanza;
-      const valorPsj = response.data.valorPesaje;
+      const valorPsj = response.data.valorPesajeVacio;
       const posicion = response.data.posicion;
       const valorPsjVehiculo = response.data.valorVehiculo;
       const limiteInf = response.data.limiteInf;
@@ -71,7 +71,7 @@ export const PesajeVacio = () => {
         setCodigoBalanza(codigoBlz);
         setValue("IdColaPesaje/" + idColaPsj + "/Balanza/" + idBlz + "/Despacho/" + idDespacho + "/Posicion/" + posicion)
       }
-      if(valorPsj !== null) setValorPesaje(valorPsj);
+      if(valorPsj !== null) setValorPesajeVacio(valorPsj);
     })
     .catch(function(err){
       console.log(err);
@@ -81,14 +81,14 @@ export const PesajeVacio = () => {
   const handleVerResultados = () => {
     const pesoMinimo = valorVehiculo - limiteInferior;
     const pesoMaximo = valorVehiculo + limiteSuperior;
-    if(valorPesaje < pesoMinimo){
-      setDesfase(pesoMinimo - valorPesaje);
+    if(valorPesajeVacio < pesoMinimo){
+      setDesfase(pesoMinimo - valorPesajeVacio);
       setTipoDesfase("menos");
       setOpenTerminar(true);
       return;
     }
-    if(valorPesaje > pesoMaximo){
-      setDesfase(valorPesaje - pesoMaximo)
+    if(valorPesajeVacio > pesoMaximo){
+      setDesfase(valorPesajeVacio - pesoMaximo)
       setTipoDesfase("extra");
       setOpenTerminar(true);
       return;
@@ -177,7 +177,7 @@ export const PesajeVacio = () => {
           <Button
               variant="contained" 
               className='button-resultados'
-              disabled={!valorPesaje}
+              disabled={!valorPesajeVacio}
               onClick={() => handleVerResultados()}
           >
               OBTENER RESULTADOS

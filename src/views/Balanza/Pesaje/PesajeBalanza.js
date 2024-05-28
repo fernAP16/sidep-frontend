@@ -148,7 +148,7 @@ export const PesajeBalanza = () => {
     let peso = pesoFloat;
     setOpenConfirm(false);
     if(unidad === "TN.") peso *= 1000;
-    agregarPesaje(idDespacho, peso, 1, idBalanza)
+    agregarPesaje(idDespacho, peso, 2, idBalanza)
     .then(function(response){
       if(response.data === 1) setOpenRegistrado(true);
       else console.log(response.data);

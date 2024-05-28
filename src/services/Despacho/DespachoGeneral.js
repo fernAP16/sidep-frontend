@@ -36,3 +36,15 @@ export const agregarPesaje = (idDespacho, valorPesaje, tipoPesaje, idBalanza) =>
         obj
     )
 }
+
+export const registrarSalidaDespacho = (idPlanta, qrSalida, idDespacho) => {
+    const obj = {
+        idPlanta: idPlanta,
+        qrSalida: qrSalida,
+        idDespacho: idDespacho
+    }
+    return axios.post(
+        API_URL.url + "despacho/salida",
+        obj
+    )
+}
