@@ -18,8 +18,8 @@ const TurnoEspera = () => {
   const [idPlantaSelected, setIdPlantaSelected] = React.useState(0);
 
   React.useEffect(() => { 
-    const x = 10.5;
-    const y = 25;
+    const x = -12.082746;
+    const y = -77.0509898;
     const idDespacho = state.idDespacho;
     setIdPlantaSelected(state.idPlanta);
     setIdDespachoActual(idDespacho);

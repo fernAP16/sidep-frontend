@@ -20,3 +20,27 @@
     color: #D32F2F;
 
 }
+
+.label-subtitulo-incorrecto{
+    font-size: 16px;
+    font-weight: normal;
+    text-align: justify;
+}
+
+.label-peso-registrado{
+    display: flex;
+    position: relative;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 36px;
+    font-weight: bold;
+    justify-content: center;
+    color: #D32F2F;
+}
+
+.label-texto-incorrecto{
+    font-size: 16px;
+    font-weight: normal;
+    text-align: justify;
+    margin-bottom: 10px;
+}

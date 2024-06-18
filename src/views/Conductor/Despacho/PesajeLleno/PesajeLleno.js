@@ -127,7 +127,7 @@ export const PesajeLleno = () => {
   }
 
   const volverADespacho = () => {
-  
+    
   }
 
   return (
@@ -194,7 +194,7 @@ export const PesajeLleno = () => {
               variant='contained'
               onClick={handleIrASalida}
               >
-              IR A CARGA
+              IR A SALIDA
               </Button>
           </Grid>
         </Box>
@@ -210,23 +210,23 @@ export const PesajeLleno = () => {
           </Typography>
         </Grid>
         <Grid className='grid-subtitulo-noaprobada'>
-          <Typography className='label-subtitulo-noaprobada'>
-            {'Los productos recogidos tienen un peso' + tipoDesfase + 'de:'}
+          <Typography className='label-subtitulo-incorrecto'>
+            {'Los productos recogidos tienen un peso ' + tipoDesfase + ' de:'}
           </Typography>
         </Grid>
-        <Grid className='label-balanza-asignada'>
+        <Grid className='label-peso-registrado'>
           {desfase + " kg."}
         </Grid>
         <Grid className='grid-subtitulo-noaprobada'>
-          <Typography className='label-subtitulo-noaprobada'>
-            Por favor, volver al despacho para revisar la carga
+          <Typography className='label-texto-incorrecto'>
+            Por favor, volver al despacho para revisar la carga.
           </Typography>
         </Grid>
         <Grid className='modal-aprobar-buttons'>
           <Button
           className='one-button'
           variant='contained'
-          onClick={volverADespacho}
+          onClick={handleCloseTerminar}
           >
             VOLVER A DESPACHO
           </Button>

@@ -8,11 +8,6 @@ const OrdenesCard = (props) => {
 
   const { orden, esInicio, detalleAction, despacharAction, estado, estaDespachando } = props;
   
-  React.useEffect(() => {
-
-  }, []);
-
-
   return (
     <Card className='orden-card'>
       <Grid container item>
@@ -36,7 +31,7 @@ const OrdenesCard = (props) => {
                 startIcon={
                   <img
                     src={DetalleIcon}
-                    alt="Logo del sistema SIDEP"
+                    alt="Detalle"
                   />
                 }
                 onClick={detalleAction}
@@ -49,7 +44,7 @@ const OrdenesCard = (props) => {
                 startIcon={ (estado === 1 && !estaDespachando) ?
                   <img
                     src={DespacharIcon}
-                    alt="Logo del sistema SIDEP"
+                    alt="Despachar"
                   />
                   : <></>
                 }
@@ -61,6 +56,21 @@ const OrdenesCard = (props) => {
             </Grid>
           : 
             <>
+              <Grid container >
+                <Button
+                  variant="contained"
+                  className='boton-detalle-full'
+                  startIcon={
+                    <img
+                      src={DetalleIcon}
+                      alt="Detalle"
+                    />
+                  }
+                  onClick={detalleAction}
+                >
+                  Ver detalle
+                </Button>
+              </Grid>
             </>
           }
         </Grid>

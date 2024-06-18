@@ -12,6 +12,7 @@ export const PesajeBalanza = () => {
   let navigate = useNavigate();
   const [idColaPesaje, setIdColaPesaje] = React.useState(0);
   const [codigoBalanza, setCodigoBalanza] = React.useState('');
+  let [idTipoPesaje, setIdTipoPesaje] = React.useState(0);
   const [idDespacho, setIdDespacho] = React.useState(0);
   const [idBalanza, setIdBalanza] = React.useState(0);
   const [unidad, setUnidad] = React.useState("TN.");
@@ -75,7 +76,8 @@ export const PesajeBalanza = () => {
       navigate(ROUTES.INICIO_BALANZA, {
         state: {
           idBalanza: localStorage.getItem('idBalanza'),
-          codigoBalanza: localStorage.getItem('codigoBalanza')
+          codigoBalanza: localStorage.getItem('codigoBalanza'),
+          idTipoPesaje: state.idTipoPesaje
         }
       });
       return;
@@ -84,10 +86,13 @@ export const PesajeBalanza = () => {
     const codigoBlz = state.codigoBalanza;
     const idDsp = state.idDespacho;
     const idBlz = state.idBalanza;
+    const idTipoPsj = state?.idTipoPesaje || localStorage.getItem('idTipoPesaje');
     setIdColaPesaje(idColaPsj);
     setCodigoBalanza(codigoBlz);
     setIdDespacho(idDsp);
     setIdBalanza(idBlz);
+    setIdTipoPesaje(idTipoPsj);
+    console.log(idTipoPsj)
     obtenerDatosDespachoPorPesaje(idColaPsj)
     .then(function(response){
       if(response.data.razonSocial !== null){
@@ -148,7 +153,7 @@ export const PesajeBalanza = () => {
     let peso = pesoFloat;
     setOpenConfirm(false);
     if(unidad === "TN.") peso *= 1000;
-    agregarPesaje(idDespacho, peso, 2, idBalanza)
+    agregarPesaje(idDespacho, peso, idTipoPesaje, idBalanza)
     .then(function(response){
       if(response.data === 1) setOpenRegistrado(true);
       else console.log(response.data);
@@ -175,9 +180,14 @@ export const PesajeBalanza = () => {
         <Typography className='codigo-titulo-inicio'>
           {codigoBalanza}
         </Typography>
+        {idTipoPesaje === "1" && 
         <Typography className='label-titulo-inicio'>
-          Pesaje antes de carga
-        </Typography>
+          Pesaje vacio
+        </Typography>}
+        {idTipoPesaje === "2" && 
+        <Typography className='label-titulo-inicio'>
+          Pesaje lleno
+        </Typography>}
       </Grid>
       <Typography className='label-ingresar-inicio'>
           Ingresar peso del vehículo:

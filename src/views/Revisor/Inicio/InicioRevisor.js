@@ -21,8 +21,8 @@ export const InicioRevisor = () => {
   const [selectedCodigoPuntoControl, setSelectedCodigoPuntoControl] = React.useState(null);
 
   React.useEffect(() => {
-    const x = 10.5;
-    const y = 25;
+    const x = -12.082746;
+    const y = -77.0509898;
     const idPlanta = 1;
     const resultado = [];
     const idRevisor = ((state && state.idRevisor) ? state.idRevisor : parseInt(localStorage.getItem('idRevisor')));
@@ -81,8 +81,8 @@ export const InicioRevisor = () => {
   }
 
   const handleIngresar = () => {
-    const x = 10.5;
-    const y = 25;
+    const x = -12.082746;
+    const y = -77.0509898;
     if(!selectedIdPuntoControl) return;
     asignarPuntoControlYRevisor((state && state.idRevisor) ? state.idRevisor : parseInt(localStorage.getItem('idRevisor')), selectedIdPuntoControl, x, y)
     .then(function(response){

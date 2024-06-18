@@ -22,3 +22,39 @@
     font-weight: normal;
     width: 100%;
 }
+
+.label-peso-desfase{
+    display: flex;
+    position: relative;
+    margin-bottom: 10px;
+    font-size: 36px;
+    font-weight: bold;
+    justify-content: center;
+    color: #D32F2F;
+}
+
+.modal-no-correcto{
+    display: flex;
+    position: relative;
+    justify-content: center;
+    font-size: 24px;
+    width: 100%;
+}
+
+.grid-subtitulo-terminar{
+    text-align: center;
+    text-justify: inter-word;
+}
+
+.label-subtitulo-terminar{
+    font-size: 16px;
+    font-weight: normal;
+    text-align: justify;
+}
+
+.modal-terminar-buttons{
+    display: flex;
+    position: relative;
+    justify-content: space-around;
+    margin-top: 15px;
+}

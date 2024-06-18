@@ -25,3 +25,9 @@ export const obtenerUltimoDespachoPorOden = (idOrden) => {
     API_URL.url + "despacho/orden/" + idOrden
   )
 }
+
+export const getDatosOrdenTerminada = (idOrden) => {
+  return axios.post(
+    API_URL.url + "despacho/ordenTerminada/" + idOrden
+  )
+}

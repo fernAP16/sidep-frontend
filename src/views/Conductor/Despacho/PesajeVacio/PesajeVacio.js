@@ -221,24 +221,24 @@ export const PesajeVacio = () => {
       >
         <Box sx={{ ...style}}>
         <Grid className='grid-titulo-noaprobada'>
-          <Typography className='modal-noaprobada'>
+          <Typography className='modal-no-correcto'>
             Peso incorrecto
           </Typography>
         </Grid>
         <Grid className='grid-subtitulo-noaprobada'>
           <Typography className='label-subtitulo-noaprobada'>
-            {'El vehiculo tiene un peso ' + tipoDesfase + 'de:'}
+            {'El vehiculo tiene un peso ' + tipoDesfase + ' de:'}
           </Typography>
         </Grid>
-        <Grid className='label-balanza-asignada'>
+        <Grid className='label-peso-desfase'>
           {desfase + " kg."}
         </Grid>
-        <Grid className='grid-subtitulo-noaprobada'>
-          <Typography className='label-subtitulo-noaprobada'>
+        <Grid className='grid-subtitulo-terminar'>
+          <Typography className='label-subtitulo-terminar'>
             Por favor, volver con el vehículo que se encuentra registrado en el sistema
           </Typography>
         </Grid>
-        <Grid className='modal-aprobar-buttons'>
+        <Grid className='modal-terminar-buttons'>
           <Button
           className='one-button'
           variant='contained'

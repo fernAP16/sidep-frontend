@@ -127,7 +127,7 @@ export const ColaCarga = () => {
               disabled={posicionActual !== 1}
               onClick={() => handleIniciarCarga()}
           >
-              OBTENER RESULTADOS
+              INICIAR CARGA
           </Button>
         </Grid>
       </div>

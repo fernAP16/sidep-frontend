@@ -25,6 +25,12 @@ const Layout = (props) => {
             case ROUTES.DESPACHO_INICIO:
             case ROUTES.DESPACHO_TURNO_ESPERA:
             case ROUTES.DESPACHO_REVISION:
+            case ROUTES.DESPACHO_PESAJE_VACIO:
+            case ROUTES.DESPACHO_COLA_CARGA:
+            case ROUTES.DESPACHO_COLA_ESCANEAR:
+            case ROUTES.DESPACHO_CARGA_PRODUCTOS:
+            case ROUTES.DESPACHO_PESAJE_LLENO:
+            case ROUTES.DESPACHO_SALIDA:
                 setValue(0);
                 break;
             case ROUTES.INICIO_CONDUCTOR:

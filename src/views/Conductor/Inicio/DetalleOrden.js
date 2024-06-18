@@ -12,9 +12,12 @@ export const DetalleOrden = () => {
     const [ordenDetalle, setOrdenDetalle] = React.useState(null);
 
     React.useEffect(() => {
+        console.log(state);
         let nomb = (state && state.nombres) ? state.nombres.split(' ') : localStorage.getItem('nombres').split(' ');
         setNombres(nomb[0].charAt(0) + nomb[0].slice(1).toLowerCase() + " " + nomb[1].charAt(0) + nomb[1].slice(1).toLowerCase());
         setOrdenDetalle((state && state.orden) ? state.orden : localStorage.getItem('ordenDetalle'))
+        console.log(state.orden);
+        // obtener datos state.terminado
     }, [])
 
     const handleVolver = () => {
@@ -101,13 +104,42 @@ export const DetalleOrden = () => {
                             {ordenDetalle.carreta.placa}
                         </Typography>
                     </Grid>
+                    {
+                        state.terminado && 
+                        <>
+                        <Grid className='detalle-item'>
+                            <Typography className='detalle-label'>
+                                Fecha de recojo:
+                            </Typography>
+                            <Typography className='detalle-resultado'>
+                                {state.fechaRecojo}
+                            </Typography>
+                        </Grid>
+                        <Grid className='detalle-item'>
+                            <Typography className='detalle-label'>
+                                Hora de llegada:
+                            </Typography>
+                            <Typography className='detalle-resultado'>
+                                {state.horaLlegada}
+                            </Typography>
+                        </Grid>
+                        <Grid className='detalle-item'>
+                            <Typography className='detalle-label'>
+                                Hora de salida:
+                            </Typography>
+                            <Typography className='detalle-resultado'>
+                                {state.horaSalida}
+                            </Typography>
+                        </Grid>
+                        </>
+                    }
                 </Card>
                 )
             }
             <Grid className='grid-volver'>
                 <Button 
                     variant="contained" 
-                    className='button-volver'
+                    className='button-volver-detalle'
                     onClick={() => handleVolver()}
                 >
                     VOLVER

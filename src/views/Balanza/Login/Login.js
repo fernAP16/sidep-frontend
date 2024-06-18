@@ -26,13 +26,17 @@ export const LoginBalanza = () => {
     }
     authBalanza(dni, contra)
     .then((function(response) {
-      console.log(response);
-      localStorage.setItem('idBalanza', response.data.id);
-      localStorage.setItem('codigoBalanza', response.data.nombres);
+      const idBalanza = response.data.id;
+      const codigoBalanza = response.data.nombres.split("/")[0];
+      const idTipoPesaje = response.data.nombres.split("/")[1];
+      localStorage.setItem('idBalanza', idBalanza);
+      localStorage.setItem('codigoBalanza', codigoBalanza);
+      localStorage.setItem('idTipoPesaje', idTipoPesaje);
       if(response.data.status)navigate(ROUTES.INICIO_BALANZA, {
         state: {
-            idBalanza: response.data.id,
-            codigoBalanza: response.data.nombres
+            idBalanza: idBalanza,
+            codigoBalanza: codigoBalanza,
+            idTipoPesaje: idTipoPesaje
         }
       });
       else setError(true);

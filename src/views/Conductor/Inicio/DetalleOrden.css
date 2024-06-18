@@ -3,8 +3,8 @@
     border: 0.5px solid rgba(0, 0, 0, 0.2);
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 10px;
-    margin-bottom: 30px;
-    padding: 20px;
+    margin-bottom: 20px;
+    padding: 20px 20px 0px 20px;
     border-radius: 0px;
     
 }
@@ -31,7 +31,7 @@
     bottom: 0;
 }
 
-.button-volver{
+.button-volver-detalle{
     background-color: #EF6C00;
     height: 40px;
     width: 100%;

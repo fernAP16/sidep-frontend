@@ -11,6 +11,7 @@ export const InicioBalanza = () => {
   let navigate = useNavigate();
   let [idBalanza, setIdBalanza] = useState(0);
   let [codigoBalanza, setCodigoBalanza] = useState('');
+  let [idTipoPesaje, setIdTipoPesaje] = useState(0);
   const [isScanning, setIsScanning] = useState(true);
   const [error, setError] = React.useState(false);
   const [mensajeError, setMensajeError] = React.useState('');
@@ -23,8 +24,10 @@ export const InicioBalanza = () => {
   React.useEffect(() => {
     const idBlz = state?.idBalanza || localStorage.getItem('idBalanza');
     const codigoBlz = state?.codigoBalanza || localStorage.getItem('codigoBalanza');
+    const idTipoPsj = state?.idTipoPesaje || localStorage.getItem('idTipoPesaje');
     setIdBalanza(idBlz);
     setCodigoBalanza(codigoBlz);
+    setIdTipoPesaje(idTipoPsj);
     return () => {
       console.log("Component unmounted");
       const videoElement = document.querySelector('video');
@@ -107,6 +110,7 @@ export const InicioBalanza = () => {
             idColaPesaje: resultado.idColaPesaje,
             codigoBalanza: codigoBalanzaRef.current,
             idDespacho: resultado.idDespacho,
+            idTipoPesaje: idTipoPesaje
           },
         });
       } else if(validacion === 0){

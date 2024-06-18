@@ -43,6 +43,19 @@
     background-color: #EF6C00;
 }
 
+.boton-detalle-full{
+    background-color: #EF6C00;
+    height: 40px;
+    width: 100%;
+    border-radius: 0px;
+    font-size: 20px;
+    font-weight: lighter;
+}
+
+.css-vkah-MuiButtonBase-root-MuiButton-root:hover.boton-detalle-full{
+    background-color: #EF6C00;
+}
+
 .boton-continuar{
     height: 40px;
     width: 50%;

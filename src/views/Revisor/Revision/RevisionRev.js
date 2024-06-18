@@ -206,6 +206,7 @@ export const RevisionRev = () => {
   }
 
   const handleVolverInicio = () => {
+    
     navigate(ROUTES.INICIO_REVISOR, {
       state: {
         idRevisor: localStorage.getItem('idRevisor'),
@@ -216,8 +217,8 @@ export const RevisionRev = () => {
 
   const handleSiguienteRevision = () => {
     handleAccionRealizada();
-    const x = 10.5;
-    const y = 25;
+    const x = -12.082746;
+    const y = -77.0509898;
     asignarPuntoControlYRevisor((state && state.idRevisor) ? state.idRevisor : parseInt(localStorage.getItem('idRevisor')), idPuntoControl, x, y)
     .then(function(response){
       localStorage.setItem('idTurnoRevision', response.data.idTurnoRevision);
