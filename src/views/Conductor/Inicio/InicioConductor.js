@@ -141,8 +141,8 @@ const InicioConductor = () => {
   }
 
   const handleCloseRegistered = () => {
-    const x = latitudActual;
-    const y = longitudActual;
+    const x = -13.12; // x = latitudActual;
+    const y = -77.94; // y = longitudActual
     setOpenRegistered(false);
     registrarTurnoEspera(idDespachoRegistrado, x, y)
       .then(function (response) {
@@ -163,8 +163,8 @@ const InicioConductor = () => {
   };
 
   const handleRegistrar = () => {
-    const x = latitudActual;
-    const y = longitudActual;
+    const x = -13.12; // x = latitudActual;
+    const y = -77.94; // y = longitudActual
     registrarDespachoByIdOrden(ordenDespachar.idOrdenRecojo, x, y)
       .then(function (response) {
         if (response.data.idDespacho !== null) {
